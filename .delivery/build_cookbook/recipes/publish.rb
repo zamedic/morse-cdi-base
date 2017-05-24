@@ -9,7 +9,7 @@ node.default['coffee-truck']['release']['user'] = 'Marc Arndt'
 secrets = get_project_secrets
 
 file '/tmp/pgp.key' do
-  content "#{secrets['pgp']}"
+  content "#{secrets['gpg']}"
 end
 
 execute 'gpg2 --import /tmp/gpg.key'
