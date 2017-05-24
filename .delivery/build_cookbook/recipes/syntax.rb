@@ -3,4 +3,4 @@
 # Recipe:: syntax
 #
 # Copyright (c) 2017 The Authors, All Rights Reserved.
-include_recipe 'coffee-truck::syntax'
+include_recipe 'maven_sonatype_truck::syntax'
