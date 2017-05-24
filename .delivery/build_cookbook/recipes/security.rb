@@ -3,4 +3,4 @@
 # Recipe:: security
 #
 # Copyright (c) 2017 The Authors, All Rights Reserved.
-include_recipe 'coffee-truck::security'
+include_recipe 'maven_sonatype_truck::security'
