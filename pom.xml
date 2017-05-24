@@ -4,7 +4,7 @@
 
   <groupId>com.marcarndt.morse</groupId>
   <artifactId>base</artifactId>
-  <version>1.0.14-SNAPSHOT</version>
+  <version>1.0.14</version>
 
   <properties>
     <version.wildfly.swarm>2017.3.3</version.wildfly.swarm>
@@ -401,7 +401,7 @@
     <developerConnection>
       scm:git:ssh://builder@default@autobot-wkbxttwhfapcogjk.us-east-1.opsworks-cm.io:8989/default/Marc/Morsecdi
     </developerConnection>
-    <tag>HEAD</tag>
+    <tag>v1.0.14</tag>
   </scm>
 
   <distributionManagement>
