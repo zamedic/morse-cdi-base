@@ -5,41 +5,46 @@ import com.marcarndt.morse.telegrambots.api.objects.Update;
 import com.marcarndt.morse.telegrambots.exceptions.TelegramApiRequestException;
 
 /**
+ * Callback to handle updates.
+ *
  * @author Ruben Bermudez
  * @version 1.0
- * @brief Callback to handle updates.
- * @date 20 of June of 2015
  */
 public interface WebhookBot {
-    /**
-     * This method is called when receiving updates via webhook
-     * @param update Update received
-     */
-    BotApiMethod onWebhookUpdateReceived(Update update);
 
-    /**
-     * Gets bot username of this bot
-     * @return Bot username
-     */
-    String getBotUsername();
+  /**
+   * @param update Update
+   * @return Bot Method
+   */
+  BotApiMethod onWebhookUpdateReceived(Update update);
 
-    /**
-     * Gets bot token to access Telegram API
-     * @return Bot token
-     */
-    String getBotToken();
+  /**
+   * Gets bot username of this bot
+   *
+   * @return Bot username
+   */
+  String getBotUsername();
 
-    /**
-     * ExecuteSSH setWebhook method to set up the url of the webhook
-     * @param url Url for the webhook
-     * @param publicCertificatePath Path to the public key certificate of the webhook
-     * @throws TelegramApiRequestException In case of error executing the request
-     */
-    void setWebhook(String url, String publicCertificatePath) throws TelegramApiRequestException;
+  /**
+   * Gets bot token to access Telegram API
+   *
+   * @return Bot token
+   */
+  String getBotToken();
 
-    /**
-     * Gets in the url for the webhook
-     * @return path in the url
-     */
-    String getBotPath();
+  /**
+   * ExecuteSSH setWebhook method to set up the url of the webhook
+   *
+   * @param url Url for the webhook
+   * @param publicCertificatePath Path to the public key certificate of the webhook
+   * @throws TelegramApiRequestException In case of error executing the request
+   */
+  void setWebhook(String url, String publicCertificatePath) throws TelegramApiRequestException;
+
+  /**
+   * Gets in the url for the webhook
+   *
+   * @return path in the url
+   */
+  String getBotPath();
 }

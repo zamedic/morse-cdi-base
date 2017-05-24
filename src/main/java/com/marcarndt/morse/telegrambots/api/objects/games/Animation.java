@@ -17,66 +17,66 @@
 package com.marcarndt.morse.telegrambots.api.objects.games;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import com.marcarndt.morse.telegrambots.api.interfaces.BotApiObject;
 import com.marcarndt.morse.telegrambots.api.objects.PhotoSize;
 
 /**
+ * This object represents an animation file.
+ *
  * @author Ruben Bermudez
  * @version 2.4
- * @brief This object represents an animation file.
- * @date 27 of September of 2016
  */
 public class Animation implements BotApiObject {
-    private static final String FILEID_FIELD = "file_id";
-    private static final String THUMB_FIELD = "thumb";
-    private static final String FILENAME_FIELD = "file_name";
-    private static final String MIMETYPE_FIELD = "mime_type";
-    private static final String FILESIZE_FIELD = "file_size";
 
-    @JsonProperty(FILEID_FIELD)
-    private String fileId; ///< Unique file identifier
-    @JsonProperty(THUMB_FIELD)
-    private PhotoSize thumb; ///< Optional. Animation thumbnail as defined by sender
-    @JsonProperty(FILENAME_FIELD)
-    private String fileName; ///< Optional. Original animation filename as defined by sender
-    @JsonProperty(MIMETYPE_FIELD)
-    private String mimetype; ///< Optional. MIME type of the file as defined by sender
-    @JsonProperty(FILESIZE_FIELD)
-    private Integer fileSize; ///< Optional. ChefFile size
+  private static final String FILEID_FIELD = "file_id";
+  private static final String THUMB_FIELD = "thumb";
+  private static final String FILENAME_FIELD = "file_name";
+  private static final String MIMETYPE_FIELD = "mime_type";
+  private static final String FILESIZE_FIELD = "file_size";
 
-    public Animation() {
-        super();
-    }
+  @JsonProperty(FILEID_FIELD)
+  private String fileId; ///< Unique file identifier
+  @JsonProperty(THUMB_FIELD)
+  private PhotoSize thumb; ///< Optional. Animation thumbnail as defined by sender
+  @JsonProperty(FILENAME_FIELD)
+  private String fileName; ///< Optional. Original animation filename as defined by sender
+  @JsonProperty(MIMETYPE_FIELD)
+  private String mimetype; ///< Optional. MIME type of the file as defined by sender
+  @JsonProperty(FILESIZE_FIELD)
+  private Integer fileSize; ///< Optional. ChefFile size
 
-    public String getFileId() {
-        return fileId;
-    }
+  public Animation() {
+    super();
+  }
 
-    public PhotoSize getThumb() {
-        return thumb;
-    }
+  public String getFileId() {
+    return fileId;
+  }
 
-    public String getFileName() {
-        return fileName;
-    }
+  public PhotoSize getThumb() {
+    return thumb;
+  }
 
-    public String getMimetype() {
-        return mimetype;
-    }
+  public String getFileName() {
+    return fileName;
+  }
 
-    public Integer getFileSize() {
-        return fileSize;
-    }
+  public String getMimetype() {
+    return mimetype;
+  }
 
-    @Override
-    public String toString() {
-        return "Animation{" +
-                "fileId='" + fileId + '\'' +
-                ", thumb=" + thumb +
-                ", fileName='" + fileName + '\'' +
-                ", mimetype='" + mimetype + '\'' +
-                ", fileSize=" + fileSize +
-                '}';
-    }
+  public Integer getFileSize() {
+    return fileSize;
+  }
+
+  @Override
+  public String toString() {
+    return "Animation{" +
+        "fileId='" + fileId + '\'' +
+        ", thumb=" + thumb +
+        ", fileName='" + fileName + '\'' +
+        ", mimetype='" + mimetype + '\'' +
+        ", fileSize=" + fileSize +
+        '}';
+  }
 }

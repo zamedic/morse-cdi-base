@@ -4,10 +4,10 @@ import com.marcarndt.morse.MorseBot;
 import com.marcarndt.morse.MorseBotException;
 import com.marcarndt.morse.command.commandlets.Commandlet;
 import com.marcarndt.morse.service.UserService;
+import com.marcarndt.morse.telegrambots.api.objects.Message;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import com.marcarndt.morse.telegrambots.api.objects.Message;
 
 /**
  * Created by arndt on 2017/04/18.
@@ -20,7 +20,7 @@ public class UserRoleAdd implements Commandlet {
 
   @Override
   public boolean canHandleCommand(Message message, String state) {
-    return state.equals(UserRoleListAdd.USER_ADD_ROLE );
+    return state.equals(UserRoleListAdd.USER_ADD_ROLE);
   }
 
   @Override
@@ -32,7 +32,7 @@ public class UserRoleAdd implements Commandlet {
       morseBot.sendMessage("USer " + parameters.get(0) + " added to role " + message.getText(),
           message.getChatId().toString());
     } catch (MorseBotException e) {
-      morseBot.sendMessage(e.getMessage(),message.getChatId().toString());
+      morseBot.sendMessage(e.getMessage(), message.getChatId().toString());
     }
 
   }

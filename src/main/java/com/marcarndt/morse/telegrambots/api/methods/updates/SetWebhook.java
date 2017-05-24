@@ -5,11 +5,11 @@ import java.util.List;
 /**
  * @author Ruben Bermudez
  * @version 1.0
- * @brief Use this method to specify a url and receive incoming updates via an outgoing webhook.
- * Whenever there is an update for the bot, we will send an HTTPS POST request to the specified url,
- * containing a JSON-serialized Update. In case of an unsuccessful request, we will give up after a
- * reasonable amount of attempts.
- * @date 20 of June of 2015
+ *
+ *          Use this method to specify a url and receive incoming updates via an outgoing webhook.
+ *          Whenever there is an update for the bot, we will send an HTTPS POST request to the
+ *          specified url, containing a JSON-serialized Update. In case of an unsuccessful request,
+ *          we will give up after a reasonable amount of attempts.
  */
 public class SetWebhook {
 
@@ -29,8 +29,8 @@ public class SetWebhook {
    */
   private Integer maxConnections;
   /**
-   * List the types of updates you want your bot to receive. For example, specify [“message”,
-   * “edited_channel_post”, “callback_query”] to only receive updates of these types. Specify an
+   * List the types of updates you want your bot to receive. For example, specify ["message",
+   * "edited_channel_post", "callback_query"] to only receive updates of these types. Specify an
    * empty list to receive all updates regardless of type (default). If not specified, the previous
    * setting will be used.
    *

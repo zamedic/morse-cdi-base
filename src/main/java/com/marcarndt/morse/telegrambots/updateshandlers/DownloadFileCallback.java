@@ -19,10 +19,11 @@ package com.marcarndt.morse.telegrambots.updateshandlers;
 
 /**
  * @author Ruben Bermudez
- * @version 1.0
- * Callback to download files async
+ * @version 1.0 Callback to download files async
  */
 public interface DownloadFileCallback<T> {
-    void onResult(T file, java.io.File output);
-    void onException(T file, Exception exception);
+
+  void onResult(T file, java.io.File output);
+
+  void onException(T file, Exception exception);
 }

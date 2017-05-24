@@ -6,8 +6,9 @@ import com.marcarndt.morse.telegrambots.api.interfaces.Validable;
 /**
  * @author Ruben Bermudez
  * @version 1.0
- * @brief Reply keyboard abstract type
- * @date 20 of June of 2015
+ *
+ *          Reply keyboard abstract type
  */
 public interface ReplyKeyboard extends InputBotApiObject, Validable {
+
 }

@@ -2,14 +2,11 @@ package com.marcarndt.morse.command;
 
 import com.marcarndt.morse.MorseBot;
 import com.marcarndt.morse.service.UserService;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.inject.Inject;
 import com.marcarndt.morse.telegrambots.api.methods.send.SendMessage;
 import com.marcarndt.morse.telegrambots.api.objects.Chat;
 import com.marcarndt.morse.telegrambots.api.objects.User;
-import com.marcarndt.morse.telegrambots.bots.AbsSender;
-import com.marcarndt.morse.telegrambots.exceptions.TelegramApiException;
+import java.util.logging.Logger;
+import javax.inject.Inject;
 
 /**
  * Created by arndt on 2017/04/17.

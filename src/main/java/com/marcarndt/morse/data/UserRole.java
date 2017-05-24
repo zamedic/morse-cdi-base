@@ -11,6 +11,7 @@ import org.mongodb.morphia.annotations.Reference;
  */
 @Entity
 public class UserRole {
+
   @Id
   private ObjectId objectId;
   private String role;

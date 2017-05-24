@@ -18,6 +18,8 @@ public class StateService {
   /**
    * @param userid Telegram user id
    * @param chatid Telegram chat id
+   * @return current user state
+   * @throws MorseBotException on exception
    */
   public String getUserState(int userid, long chatid) throws MorseBotException {
     UserChatState userChatState = getUserChatState(userid, chatid);

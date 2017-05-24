@@ -1,6 +1,21 @@
 package com.marcarndt.morse.telegrambots.bots;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.marcarndt.morse.telegrambots.ApiConstants;
+import com.marcarndt.morse.telegrambots.api.methods.BotApiMethod;
+import com.marcarndt.morse.telegrambots.api.methods.send.SendAudio;
+import com.marcarndt.morse.telegrambots.api.methods.send.SendDocument;
+import com.marcarndt.morse.telegrambots.api.methods.send.SendPhoto;
+import com.marcarndt.morse.telegrambots.api.methods.send.SendSticker;
+import com.marcarndt.morse.telegrambots.api.methods.send.SendVideo;
+import com.marcarndt.morse.telegrambots.api.methods.send.SendVoice;
+import com.marcarndt.morse.telegrambots.api.objects.File;
+import com.marcarndt.morse.telegrambots.api.objects.Message;
+import com.marcarndt.morse.telegrambots.exceptions.TelegramApiException;
+import com.marcarndt.morse.telegrambots.exceptions.TelegramApiRequestException;
+import com.marcarndt.morse.telegrambots.exceptions.TelegramApiValidationException;
+import com.marcarndt.morse.telegrambots.updateshandlers.DownloadFileCallback;
+import com.marcarndt.morse.telegrambots.updateshandlers.SentCallback;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
@@ -28,27 +43,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import com.marcarndt.morse.telegrambots.ApiConstants;
-import com.marcarndt.morse.telegrambots.api.methods.BotApiMethod;
-import com.marcarndt.morse.telegrambots.api.methods.send.SendAudio;
-import com.marcarndt.morse.telegrambots.api.methods.send.SendDocument;
-import com.marcarndt.morse.telegrambots.api.methods.send.SendPhoto;
-import com.marcarndt.morse.telegrambots.api.methods.send.SendSticker;
-import com.marcarndt.morse.telegrambots.api.methods.send.SendVideo;
-import com.marcarndt.morse.telegrambots.api.methods.send.SendVoice;
-import com.marcarndt.morse.telegrambots.api.objects.File;
-import com.marcarndt.morse.telegrambots.api.objects.Message;
-import com.marcarndt.morse.telegrambots.exceptions.TelegramApiException;
-import com.marcarndt.morse.telegrambots.exceptions.TelegramApiRequestException;
-import com.marcarndt.morse.telegrambots.exceptions.TelegramApiValidationException;
-import com.marcarndt.morse.telegrambots.updateshandlers.DownloadFileCallback;
-import com.marcarndt.morse.telegrambots.updateshandlers.SentCallback;
 
 /**
  * @author Ruben Bermudez
  * @version 1.0
- * @brief Implementation of all the methods needed to interact with Telegram Servers
- * @date 14 of January of 2016
  */
 @SuppressWarnings("unused")
 public abstract class DefaultAbsSender extends AbsSender {

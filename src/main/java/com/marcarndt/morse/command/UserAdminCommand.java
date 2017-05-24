@@ -4,8 +4,6 @@ import com.marcarndt.morse.MorseBot;
 import com.marcarndt.morse.service.UserService;
 import com.marcarndt.morse.telegrambots.api.objects.Chat;
 import com.marcarndt.morse.telegrambots.api.objects.User;
-import com.marcarndt.morse.telegrambots.bots.AbsSender;
-import javax.inject.Inject;
 
 /**
  * Created by arndt on 2017/05/19.

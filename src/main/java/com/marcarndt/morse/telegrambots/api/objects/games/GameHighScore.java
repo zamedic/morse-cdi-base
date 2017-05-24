@@ -18,46 +18,46 @@
 package com.marcarndt.morse.telegrambots.api.objects.games;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import com.marcarndt.morse.telegrambots.api.interfaces.BotApiObject;
 import com.marcarndt.morse.telegrambots.api.objects.User;
 
 /**
+ * This object represents one row of a game high scores table
+ *
  * @author Ruben Bermudez
  * @version 1.0
- * @brief This object represents one row of a game high scores table
- * @date 25 of September of 2016
  */
 public class GameHighScore implements BotApiObject {
-    private static final String POSITION_FIELD = "position";
-    private static final String USER_FIELD = "user";
-    private static final String SCORE_FIELD = "score";
 
-    @JsonProperty(POSITION_FIELD)
-    private Integer position; ///< Position in the game high score table
-    @JsonProperty(USER_FIELD)
-    private User user; ///< UserInitialize
-    @JsonProperty(SCORE_FIELD)
-    private Integer score; ///< Score
+  private static final String POSITION_FIELD = "position";
+  private static final String USER_FIELD = "user";
+  private static final String SCORE_FIELD = "score";
 
-    public Integer getPosition() {
-        return position;
-    }
+  @JsonProperty(POSITION_FIELD)
+  private Integer position; ///< Position in the game high score table
+  @JsonProperty(USER_FIELD)
+  private User user; ///< UserInitialize
+  @JsonProperty(SCORE_FIELD)
+  private Integer score; ///< Score
 
-    public User getUser() {
-        return user;
-    }
+  public Integer getPosition() {
+    return position;
+  }
 
-    public Integer getScore() {
-        return score;
-    }
+  public User getUser() {
+    return user;
+  }
 
-    @Override
-    public String toString() {
-        return "GameHighScore{" +
-                "position=" + position +
-                ", user=" + user +
-                ", score=" + score +
-                '}';
-    }
+  public Integer getScore() {
+    return score;
+  }
+
+  @Override
+  public String toString() {
+    return "GameHighScore{" +
+        "position=" + position +
+        ", user=" + user +
+        ", score=" + score +
+        '}';
+  }
 }

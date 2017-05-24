@@ -1,19 +1,9 @@
 package com.marcarndt.morse;
 
 
-import com.marcarndt.morse.command.commandlets.Commandlet;
 import com.marcarndt.morse.command.BaseCommand;
+import com.marcarndt.morse.command.commandlets.Commandlet;
 import com.marcarndt.morse.service.StateService;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
-import javax.enterprise.inject.Any;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
 import com.marcarndt.morse.telegrambots.api.methods.send.SendMessage;
 import com.marcarndt.morse.telegrambots.api.objects.Chat;
 import com.marcarndt.morse.telegrambots.api.objects.Contact;
@@ -27,6 +17,16 @@ import com.marcarndt.morse.telegrambots.api.objects.replykeyboard.buttons.Keyboa
 import com.marcarndt.morse.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import com.marcarndt.morse.telegrambots.bots.TelegramLongPollingCommandBot;
 import com.marcarndt.morse.telegrambots.exceptions.TelegramApiException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
 
 /**
  * Created by arndt on 2017/04/06.
@@ -34,26 +34,49 @@ import com.marcarndt.morse.telegrambots.exceptions.TelegramApiException;
 @Singleton
 public class MorseBot extends TelegramLongPollingCommandBot {
 
+  /**
+   * Logger
+   */
   private static Logger LOG = Logger.getLogger(MorseBot.class.getName());
 
+  /**
+   * State Service
+   */
   @Inject
-  StateService stateService;
+  private StateService stateService;
 
+  /**
+   * Commandlets as discovered by CDI
+   */
   @Inject
   @Any
-  Instance<Commandlet> commandlets;
+  private Instance<Commandlet> commandlets;
 
+  /**
+   * All the base commands
+   */
   @Inject
   @Any
-  Instance<BaseCommand> commands;
+  private Instance<BaseCommand> commands;
+
+  /**
+   * Config
+   */
   @Inject
-  MorseBotConfig botConfig;
+  private MorseBotConfig botConfig;
 
 
   public MorseBot() {
     super();
   }
 
+  /**
+   * Send a message with a reply keyboard to the user
+   * @param user usser
+   * @param chat chat
+   * @param text to display in the chat
+   * @param buttons String list of buttons
+   */
   public void sendReplyKeyboardMessage(User user, Chat chat, String text,
       List<String> buttons) {
     SendMessage sendMessage = new SendMessage();
@@ -63,6 +86,13 @@ public class MorseBot extends TelegramLongPollingCommandBot {
     sendMessage(sendMessage);
   }
 
+  /**
+   * Send a message with a reply keyboard to the user
+   * @param user usser
+   * @param chat chat
+   * @param text to display in the chat
+   * @param buttons String array of buttons
+   */
   public void sendReplyKeyboardMessage(User user, Chat chat, String text,
       String... buttons) {
     sendReplyKeyboardMessage(user, chat, text, Arrays.asList(buttons));

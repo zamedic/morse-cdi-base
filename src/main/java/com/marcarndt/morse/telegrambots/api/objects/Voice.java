@@ -1,57 +1,57 @@
 package com.marcarndt.morse.telegrambots.api.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import com.marcarndt.morse.telegrambots.api.interfaces.BotApiObject;
 
 /**
  * @author Ruben Bermudez
  * @version 1.0
- * @brief This object represents a voice note
- * @date 16 of July of 2015
+ *
+ *          object represents a voice note
  */
 public class Voice implements BotApiObject {
-    private static final String FILEID_FIELD = "file_id";
-    private static final String DURATION_FIELD = "duration";
-    private static final String MIMETYPE_FIELD = "mime_type";
-    private static final String FILESIZE_FIELD = "file_size";
 
-    @JsonProperty(FILEID_FIELD)
-    private String fileId; ///< Unique identifier for this file
-    @JsonProperty(DURATION_FIELD)
-    private Integer duration; ///< Integer	Duration of the audio in seconds as defined by sender
-    @JsonProperty(MIMETYPE_FIELD)
-    private String mimeType; ///< Optional. MIME type of the file as defined by sender
-    @JsonProperty(FILESIZE_FIELD)
-    private Integer fileSize; ///< Optional. ChefFile size
+  private static final String FILEID_FIELD = "file_id";
+  private static final String DURATION_FIELD = "duration";
+  private static final String MIMETYPE_FIELD = "mime_type";
+  private static final String FILESIZE_FIELD = "file_size";
 
-    public Voice() {
-        super();
-    }
+  @JsonProperty(FILEID_FIELD)
+  private String fileId; ///< Unique identifier for this file
+  @JsonProperty(DURATION_FIELD)
+  private Integer duration; ///< Integer	Duration of the audio in seconds as defined by sender
+  @JsonProperty(MIMETYPE_FIELD)
+  private String mimeType; ///< Optional. MIME type of the file as defined by sender
+  @JsonProperty(FILESIZE_FIELD)
+  private Integer fileSize; ///< Optional. ChefFile size
 
-    public String getFileId() {
-        return fileId;
-    }
+  public Voice() {
+    super();
+  }
 
-    public Integer getDuration() {
-        return duration;
-    }
+  public String getFileId() {
+    return fileId;
+  }
 
-    public String getMimeType() {
-        return mimeType;
-    }
+  public Integer getDuration() {
+    return duration;
+  }
 
-    public Integer getFileSize() {
-        return fileSize;
-    }
+  public String getMimeType() {
+    return mimeType;
+  }
 
-    @Override
-    public String toString() {
-        return "Voice{" +
-                "fileId='" + fileId + '\'' +
-                ", duration=" + duration +
-                ", mimeType='" + mimeType + '\'' +
-                ", fileSize=" + fileSize +
-                '}';
-    }
+  public Integer getFileSize() {
+    return fileSize;
+  }
+
+  @Override
+  public String toString() {
+    return "Voice{" +
+        "fileId='" + fileId + '\'' +
+        ", duration=" + duration +
+        ", mimeType='" + mimeType + '\'' +
+        ", fileSize=" + fileSize +
+        '}';
+  }
 }
