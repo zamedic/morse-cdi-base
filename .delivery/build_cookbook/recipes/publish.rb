@@ -8,7 +8,7 @@ node.default['coffee-truck']['release']['user'] = 'Marc Arndt'
 
 secrets = get_project_secrets
 
-file '/tmp/pgp.key' do
+file '/tmp/gpg.key' do
   content "#{secrets['gpg']}"
 end
 
