@@ -34,26 +34,49 @@ import javax.inject.Inject;
 @Singleton
 public class MorseBot extends TelegramLongPollingCommandBot {
 
+  /**
+   * Logger
+   */
   private static Logger LOG = Logger.getLogger(MorseBot.class.getName());
 
+  /**
+   * State Service
+   */
   @Inject
-  StateService stateService;
+  private StateService stateService;
 
+  /**
+   * Commandlets as discovered by CDI
+   */
   @Inject
   @Any
-  Instance<Commandlet> commandlets;
+  private Instance<Commandlet> commandlets;
 
+  /**
+   * All the base commands
+   */
   @Inject
   @Any
-  Instance<BaseCommand> commands;
+  private Instance<BaseCommand> commands;
+
+  /**
+   * Config
+   */
   @Inject
-  MorseBotConfig botConfig;
+  private MorseBotConfig botConfig;
 
 
   public MorseBot() {
     super();
   }
 
+  /**
+   * Send a message with a reply keyboard to the user
+   * @param user usser
+   * @param chat chat
+   * @param text to display in the chat
+   * @param buttons String list of buttons
+   */
   public void sendReplyKeyboardMessage(User user, Chat chat, String text,
       List<String> buttons) {
     SendMessage sendMessage = new SendMessage();
@@ -63,6 +86,13 @@ public class MorseBot extends TelegramLongPollingCommandBot {
     sendMessage(sendMessage);
   }
 
+  /**
+   * Send a message with a reply keyboard to the user
+   * @param user usser
+   * @param chat chat
+   * @param text to display in the chat
+   * @param buttons String array of buttons
+   */
   public void sendReplyKeyboardMessage(User user, Chat chat, String text,
       String... buttons) {
     sendReplyKeyboardMessage(user, chat, text, Arrays.asList(buttons));
