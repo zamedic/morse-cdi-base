@@ -6,7 +6,7 @@
 
   <groupId>com.marcarndt.morse</groupId>
   <artifactId>base</artifactId>
-  <version>1.0.4-SNAPSHOT</version>
+  <version>1.0.5-SNAPSHOT</version>
 
   <properties>
     <version.wildfly.swarm>2017.3.3</version.wildfly.swarm>
@@ -342,7 +342,7 @@
 
   <scm>
     <developerConnection>
-      scm:git:ssh://builder@default@autobot-wkbxttwhfapcogjk.us-east-1.opsworks-cm.io:8989/default/Marc/MorseMonkey
+      ssh://builder@default@autobot-wkbxttwhfapcogjk.us-east-1.opsworks-cm.io:8989/default/Marc/Morsecdi
     </developerConnection>
   </scm>
 
