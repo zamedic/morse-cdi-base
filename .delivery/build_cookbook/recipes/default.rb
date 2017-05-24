@@ -15,3 +15,16 @@ maven_settings "settings.servers" do
       "password" => "#{secrets['osspass']}"
   }
 end
+
+maven_settings "settings.profiles" do
+  value "profile" => {
+      "id" => "ossrh",
+      "activation" => {
+         "activeByDefault" => "true"
+      },
+      "properties" => {
+          "gpg.executable" => "gpg2",
+          "gpg.passphrase" => "#{secrets['gpgpass']}"
+      }
+  }
+end
