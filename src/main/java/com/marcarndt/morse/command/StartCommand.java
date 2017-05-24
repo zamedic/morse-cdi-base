@@ -2,16 +2,16 @@ package com.marcarndt.morse.command;
 
 
 import com.marcarndt.morse.service.UserService;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
 import com.marcarndt.morse.telegrambots.api.methods.send.SendMessage;
 import com.marcarndt.morse.telegrambots.api.objects.Chat;
 import com.marcarndt.morse.telegrambots.api.objects.User;
 import com.marcarndt.morse.telegrambots.bots.AbsSender;
 import com.marcarndt.morse.telegrambots.bots.commands.BotCommand;
 import com.marcarndt.morse.telegrambots.exceptions.TelegramApiException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 /**
  * Created by arndt on 2017/04/06.
@@ -19,10 +19,9 @@ import com.marcarndt.morse.telegrambots.exceptions.TelegramApiException;
 @Stateless
 public class StartCommand extends BotCommand {
 
+  private static Logger LOG = Logger.getLogger(StartCommand.class.getName());
   @Inject
   UserService userService;
-
-  private static Logger LOG = Logger.getLogger(StartCommand.class.getName());
 
   @Override
   public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {

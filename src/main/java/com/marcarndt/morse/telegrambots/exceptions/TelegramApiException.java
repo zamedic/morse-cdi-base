@@ -20,27 +20,27 @@ package com.marcarndt.morse.telegrambots.exceptions;
 /**
  * @author Ruben Bermudez
  * @version 1.0
- * @brief Base class for any exception from TelegramBots api
- * @date 16 of September of 2016
  */
 public class TelegramApiException extends Exception {
-    public TelegramApiException() {
-        super();
-    }
 
-    public TelegramApiException(String message) {
-        super(message);
-    }
+  public TelegramApiException() {
+    super();
+  }
 
-    public TelegramApiException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  public TelegramApiException(String message) {
+    super(message);
+  }
 
-    public TelegramApiException(Throwable cause) {
-        super(cause);
-    }
+  public TelegramApiException(String message, Throwable cause) {
+    super(message, cause);
+  }
 
-    protected TelegramApiException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
+  public TelegramApiException(Throwable cause) {
+    super(cause);
+  }
+
+  protected TelegramApiException(String message, Throwable cause, boolean enableSuppression,
+      boolean writableStackTrace) {
+    super(message, cause, enableSuppression, writableStackTrace);
+  }
 }

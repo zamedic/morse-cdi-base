@@ -21,14 +21,15 @@ import com.marcarndt.morse.telegrambots.exceptions.TelegramApiValidationExceptio
 
 /**
  * @author Ruben Bermudez
- * @version 1.0
- * @brief Interface that can be implemented by objects that knows how to validate their fields
- * @date 16 of September of 2016
+ * @version 1.0 Interface that can be implemented by objects that knows how to validate their
+ *          fields
  */
 public interface Validable {
-    /**
-     * Validates that mandatory fields are filled and optional objects
-     * @throws TelegramApiValidationException If any mandatory field is empty
-     */
-    void validate() throws TelegramApiValidationException;
+
+  /**
+   * Validates that mandatory fields are filled and optional objects
+   *
+   * @throws TelegramApiValidationException If any mandatory field is empty
+   */
+  void validate() throws TelegramApiValidationException;
 }

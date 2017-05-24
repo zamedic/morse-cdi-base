@@ -1,8 +1,8 @@
 package com.marcarndt.morse.command.commandlets;
 
 import com.marcarndt.morse.MorseBot;
-import java.util.List;
 import com.marcarndt.morse.telegrambots.api.objects.Message;
+import java.util.List;
 
 /**
  * Created by arndt on 2017/04/18.

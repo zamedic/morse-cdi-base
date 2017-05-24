@@ -20,18 +20,20 @@ package com.marcarndt.morse.telegrambots.api.objects.games;
 import com.marcarndt.morse.telegrambots.api.interfaces.BotApiObject;
 
 /**
+ * A placeholder, currently holds no information. Use BotFather to set up your game.
+ *
  * @author Ruben Bermudez
  * @version 2.4
- * @brief A placeholder, currently holds no information. Use BotFather to set up your game.
- * @date 16 of September of 2016
  */
-public class CallbackGame implements BotApiObject {
-    public CallbackGame() {
-        super();
-    }
 
-    @Override
-    public String toString() {
-        return "CallbackGame{}";
-    }
+public class CallbackGame implements BotApiObject {
+
+  public CallbackGame() {
+    super();
+  }
+
+  @Override
+  public String toString() {
+    return "CallbackGame{}";
+  }
 }

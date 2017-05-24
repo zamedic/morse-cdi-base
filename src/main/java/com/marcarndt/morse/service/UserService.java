@@ -19,26 +19,21 @@ import javax.inject.Inject;
 @Stateless
 public class UserService {
 
+  public static String UNAUTHENTICATED = "unauthenticated";
+  public static String USER = "user";
+  public static String ADMIN = "admin";
   private static Logger LOG = Logger.getLogger(UserService.class.getName());
-
   @Inject
   MongoService mongoService;
-
   @Any
   @Inject
   Instance<BaseCommand> baseCommands;
 
-  public static String UNAUTHENTICATED = "unauthenticated";
-  public static String USER = "user";
-  public static String ADMIN = "admin";
-
   /**
-   * Checks if the user has the role.
-   *
-   * @param id Telegram sser ID
-   * @param role UNAUTHENTICATED - will allow all users USER - Will ensure the user exists on the DB
-   * All other roles will be validated
-   * @return true if the user has the role
+   * @param id id
+   * @param role role
+   * @return true if the user is valid
+   * @throws MorseBotException on exception
    */
   public boolean validateUser(Integer id, String role) throws MorseBotException {
     if (role.equals(UNAUTHENTICATED)) {
@@ -71,6 +66,7 @@ public class UserService {
    *
    * @param id ID for the user
    * @param name Name for the user
+   * @param lastname last name
    * @param roles List of roes for the user
    */
   public void addUser(int id, String name, String lastname, String... roles) {
@@ -141,6 +137,8 @@ public class UserService {
    * Remove a user from a role
    *
    * @param name First name of the user
+   * @param roleName role name
+   * @throws MorseBotException on exception
    */
   public void removeUserFromRole(String name, String roleName) throws MorseBotException {
     User user = getUserByName(name);
@@ -152,8 +150,7 @@ public class UserService {
   }
 
   /**
-   *
-   * @return
+   * @return list of all roles identified
    */
   public List<String> getAllRoles() {
     List<String> result = new ArrayList<>();

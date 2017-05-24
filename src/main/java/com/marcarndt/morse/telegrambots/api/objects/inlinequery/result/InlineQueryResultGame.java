@@ -18,86 +18,87 @@
 package com.marcarndt.morse.telegrambots.api.objects.inlinequery.result;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import com.marcarndt.morse.telegrambots.api.objects.replykeyboard.InlineKeyboardMarkup;
 import com.marcarndt.morse.telegrambots.exceptions.TelegramApiValidationException;
 
 /**
  * @author Ruben Bermudez
  * @version 1.0
- * @brief Represents a Game
- * @note This will only work in Telegram versions released after 1 October, 2016. Older clients will ignore them.
- * @date 27 of September 2016
+ *
+ *          Represents a Game
+ *
+ *          This will only work in Telegram versions released after 1 October, 2016. Older clients
+ *          will ignore them.
  */
 public class InlineQueryResultGame implements InlineQueryResult {
 
-    private static final String TYPE_FIELD = "type";
-    private static final String ID_FIELD = "id";
-    private static final String GAMESHORTNAME_FIELD = "game_short_name";
-    private static final String REPLY_MARKUP_FIELD = "reply_markup";
+  private static final String TYPE_FIELD = "type";
+  private static final String ID_FIELD = "id";
+  private static final String GAMESHORTNAME_FIELD = "game_short_name";
+  private static final String REPLY_MARKUP_FIELD = "reply_markup";
 
-    @JsonProperty(TYPE_FIELD)
-    private String type = "game"; ///< Type of the result, must be "game"
-    @JsonProperty(ID_FIELD)
-    private String id; ///< Unique identifier of this result, 1-64 bytes
-    @JsonProperty(GAMESHORTNAME_FIELD)
-    private String gameShortName; ///< Short name of the game
-    @JsonProperty(REPLY_MARKUP_FIELD)
-    private InlineKeyboardMarkup replyMarkup; ///< Optional. Inline keyboard attached to the message
+  @JsonProperty(TYPE_FIELD)
+  private String type = "game"; ///< Type of the result, must be "game"
+  @JsonProperty(ID_FIELD)
+  private String id; ///< Unique identifier of this result, 1-64 bytes
+  @JsonProperty(GAMESHORTNAME_FIELD)
+  private String gameShortName; ///< Short name of the game
+  @JsonProperty(REPLY_MARKUP_FIELD)
+  private InlineKeyboardMarkup replyMarkup; ///< Optional. Inline keyboard attached to the message
 
-    public InlineQueryResultGame() {
-        super();
+  public InlineQueryResultGame() {
+    super();
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public InlineQueryResultGame setId(String id) {
+    this.id = id;
+    return this;
+  }
+
+  public InlineKeyboardMarkup getReplyMarkup() {
+    return replyMarkup;
+  }
+
+  public InlineQueryResultGame setReplyMarkup(InlineKeyboardMarkup replyMarkup) {
+    this.replyMarkup = replyMarkup;
+    return this;
+  }
+
+  public String getGameShortName() {
+    return gameShortName;
+  }
+
+  public void setGameShortName(String gameShortName) {
+    this.gameShortName = gameShortName;
+  }
+
+  @Override
+  public void validate() throws TelegramApiValidationException {
+    if (id == null || id.isEmpty()) {
+      throw new TelegramApiValidationException("ID parameter can't be empty", this);
     }
-
-    public String getType() {
-        return type;
+    if (gameShortName == null || gameShortName.isEmpty()) {
+      throw new TelegramApiValidationException("GameShortName parameter can't be empty", this);
     }
-
-    public String getId() {
-        return id;
+    if (replyMarkup != null) {
+      replyMarkup.validate();
     }
+  }
 
-    public InlineQueryResultGame setId(String id) {
-        this.id = id;
-        return this;
-    }
-
-    public InlineKeyboardMarkup getReplyMarkup() {
-        return replyMarkup;
-    }
-
-    public InlineQueryResultGame setReplyMarkup(InlineKeyboardMarkup replyMarkup) {
-        this.replyMarkup = replyMarkup;
-        return this;
-    }
-
-    public String getGameShortName() {
-        return gameShortName;
-    }
-
-    public void setGameShortName(String gameShortName) {
-        this.gameShortName = gameShortName;
-    }
-
-    @Override
-    public void validate() throws TelegramApiValidationException {
-        if (id == null || id.isEmpty()) {
-            throw new TelegramApiValidationException("ID parameter can't be empty", this);
-        }
-        if (gameShortName == null || gameShortName.isEmpty()) {
-            throw new TelegramApiValidationException("GameShortName parameter can't be empty", this);
-        }
-        if (replyMarkup != null) {
-            replyMarkup.validate();
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "InlineQueryResultGame{" +
-                "id='" + id + '\'' +
-                ", gameShortName='" + gameShortName + '\'' +
-                ", replyMarkup=" + replyMarkup +
-                '}';
-    }
+  @Override
+  public String toString() {
+    return "InlineQueryResultGame{" +
+        "id='" + id + '\'' +
+        ", gameShortName='" + gameShortName + '\'' +
+        ", replyMarkup=" + replyMarkup +
+        '}';
+  }
 }

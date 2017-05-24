@@ -11,12 +11,12 @@ import org.mongodb.morphia.annotations.Id;
 @Entity
 public class UserChatState {
 
-  @Id
-  private ObjectId objectId;
-  private int userId;
   long chatId;
   String state;
   List<String> fields;
+  @Id
+  private ObjectId objectId;
+  private int userId;
 
   public UserChatState() {
   }

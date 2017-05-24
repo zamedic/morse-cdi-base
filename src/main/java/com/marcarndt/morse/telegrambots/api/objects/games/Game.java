@@ -17,91 +17,89 @@
 package com.marcarndt.morse.telegrambots.api.objects.games;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import com.marcarndt.morse.telegrambots.api.interfaces.BotApiObject;
 import com.marcarndt.morse.telegrambots.api.objects.MessageEntity;
 import com.marcarndt.morse.telegrambots.api.objects.PhotoSize;
-
 import java.util.List;
 
 /**
+ * This object represents a game. Use BotFather to create and edit games, their short names
+ * will act as unique identifiers.
+ *
  * @author Ruben Bermudez
  * @version 2.4
- * @brief This object represents a game.
- * Use BotFather to create and edit games, their short names will act as unique identifiers.
- * @date 27 of September of 2016
  */
 public class Game implements BotApiObject {
 
-    private static final String TITLE_FIELD = "title";
-    private static final String DESCRIPTION_FIELD = "description";
-    private static final String PHOTO_FIELD = "photo";
-    private static final String ANIMATION_FIELD = "animation";
-    private static final String TEXT_FIELD = "text";
-    private static final String TEXTENTITIES_FIELD = "text_entities";
+  private static final String TITLE_FIELD = "title";
+  private static final String DESCRIPTION_FIELD = "description";
+  private static final String PHOTO_FIELD = "photo";
+  private static final String ANIMATION_FIELD = "animation";
+  private static final String TEXT_FIELD = "text";
+  private static final String TEXTENTITIES_FIELD = "text_entities";
 
-    @JsonProperty(TITLE_FIELD)
-    private String title; ///< Title of the game
-    @JsonProperty(DESCRIPTION_FIELD)
-    private String description; ///< Description of the game
-    @JsonProperty(PHOTO_FIELD)
-    private List<PhotoSize> photo; ///< Photo
-    /**
-     * Optional. Brief description of the game or high scores included in the game message.
-     * Can be automatically edited to include current high scores for the game
-     * when the bot calls setGameScore, or manually edited using editMessageText.
-     * 0-4096 characters.
-     */
-    @JsonProperty(TEXT_FIELD)
-    private String text;
-    /**
-     * Optional. Special entities that appear in text, such as usernames,
-     * URLs, bot commands, etc.
-     */
-    @JsonProperty(TEXTENTITIES_FIELD)
-    private List<MessageEntity> entities;
-    @JsonProperty(ANIMATION_FIELD)
-    private Animation animation; ///< Optional. Animation
+  @JsonProperty(TITLE_FIELD)
+  private String title; ///< Title of the game
+  @JsonProperty(DESCRIPTION_FIELD)
+  private String description; ///< Description of the game
+  @JsonProperty(PHOTO_FIELD)
+  private List<PhotoSize> photo; ///< Photo
+  /**
+   * Optional. Brief description of the game or high scores included in the game message.
+   * Can be automatically edited to include current high scores for the game
+   * when the bot calls setGameScore, or manually edited using editMessageText.
+   * 0-4096 characters.
+   */
+  @JsonProperty(TEXT_FIELD)
+  private String text;
+  /**
+   * Optional. Special entities that appear in text, such as usernames,
+   * URLs, bot commands, etc.
+   */
+  @JsonProperty(TEXTENTITIES_FIELD)
+  private List<MessageEntity> entities;
+  @JsonProperty(ANIMATION_FIELD)
+  private Animation animation; ///< Optional. Animation
 
-    public Game() {
-        super();
-    }
+  public Game() {
+    super();
+  }
 
-    public String getTitle() {
-        return title;
-    }
+  public String getTitle() {
+    return title;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public List<PhotoSize> getPhoto() {
-        return photo;
-    }
+  public List<PhotoSize> getPhoto() {
+    return photo;
+  }
 
-    public Animation getAnimation() {
-        return animation;
-    }
+  public Animation getAnimation() {
+    return animation;
+  }
 
-    public String getText() {
-        return text;
-    }
+  public String getText() {
+    return text;
+  }
 
-    public boolean hasEntities() {
-        return entities != null && !entities.isEmpty();
-    }
+  public boolean hasEntities() {
+    return entities != null && !entities.isEmpty();
+  }
 
-    public List<MessageEntity> getEntities() {
-        return entities;
-    }
+  public List<MessageEntity> getEntities() {
+    return entities;
+  }
 
-    @Override
-    public String toString() {
-        return "Game{" +
-                "title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", photo=" + photo +
-                ", animation=" + animation +
-                '}';
-    }
+  @Override
+  public String toString() {
+    return "Game{" +
+        "title='" + title + '\'' +
+        ", description='" + description + '\'' +
+        ", photo=" + photo +
+        ", animation=" + animation +
+        '}';
+  }
 }

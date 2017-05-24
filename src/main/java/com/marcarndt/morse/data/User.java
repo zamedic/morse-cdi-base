@@ -10,10 +10,10 @@ import org.mongodb.morphia.annotations.Id;
 @Entity
 public class User {
 
-  @Id
-  private ObjectId objectId;
   Integer userId;
   String name;
+  @Id
+  private ObjectId objectId;
 
   public Integer getUserId() {
     return userId;

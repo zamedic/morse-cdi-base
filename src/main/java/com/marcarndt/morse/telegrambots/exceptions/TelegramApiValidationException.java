@@ -23,39 +23,38 @@ import com.marcarndt.morse.telegrambots.api.methods.PartialBotApiMethod;
 /**
  * @author Ruben Bermudez
  * @version 1.0
- * @brief Exception from method validations
- * @date 16 of September of 2016
  */
 public class TelegramApiValidationException extends TelegramApiException {
-    private PartialBotApiMethod method;
-    private InputBotApiObject object;
 
-    public TelegramApiValidationException(String message, PartialBotApiMethod method) {
-        super(message);
-        this.method = method;
-    }
+  private PartialBotApiMethod method;
+  private InputBotApiObject object;
 
-    public TelegramApiValidationException(String message, InputBotApiObject object) {
-        super(message);
-        this.object = object;
-    }
+  public TelegramApiValidationException(String message, PartialBotApiMethod method) {
+    super(message);
+    this.method = method;
+  }
 
-    public PartialBotApiMethod getMethod() {
-        return method;
-    }
+  public TelegramApiValidationException(String message, InputBotApiObject object) {
+    super(message);
+    this.object = object;
+  }
 
-    public InputBotApiObject getObject() {
-        return object;
-    }
+  public PartialBotApiMethod getMethod() {
+    return method;
+  }
 
-    @Override
-    public String toString() {
-        if (method != null) {
-            return super.toString() + " in method: " + method.toString();
-        }
-        if (object != null) {
-            return super.toString() + " in object: " + object.toString();
-        }
-        return super.toString();
+  public InputBotApiObject getObject() {
+    return object;
+  }
+
+  @Override
+  public String toString() {
+    if (method != null) {
+      return super.toString() + " in method: " + method.toString();
     }
+    if (object != null) {
+      return super.toString() + " in object: " + object.toString();
+    }
+    return super.toString();
+  }
 }
