@@ -240,8 +240,13 @@
           <checkModificationExcludes>
             <checkModificationExclude>**\*.iml</checkModificationExclude>
           </checkModificationExcludes>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <useReleaseProfile>false</useReleaseProfile>
+          <releaseProfiles>release</releaseProfiles>
+          <goals>deploy</goals>
         </configuration>
       </plugin>
+
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -341,22 +346,18 @@
     </profile>
   </profiles>
 
-  <distributionManagement>
-    <snapshotRepository>
-      <id>snapshots</id>
-      <url>http://nexus.standardbank.co.za:8090/nexus/content/repositories/snapshots</url>
-    </snapshotRepository>
-    <repository>
-      <id>releases</id>
-      <url>http://nexus.standardbank.co.za:8090/nexus/content/repositories/releases</url>
-    </repository>
-  </distributionManagement>
-
   <scm>
     <developerConnection>
       scm:git:ssh://builder@default@autobot-wkbxttwhfapcogjk.us-east-1.opsworks-cm.io:8989/default/Marc/MorseMonkey
     </developerConnection>
   </scm>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
 
 
 </project>
