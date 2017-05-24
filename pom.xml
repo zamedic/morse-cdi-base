@@ -4,7 +4,20 @@
 
   <groupId>com.marcarndt.morse</groupId>
   <artifactId>base</artifactId>
-  <version>1.0.14-SNAPSHOT</version>
+  <version>1.0.15-SNAPSHOT</version>
+  <name>Morse CDI Telegram Base</name>
+  <description>A Telegram bot build using CDI to create a plugable bot. This is the base project
+    with provides the basic framework.
+  </description>
+  <url>https://github.com/zamedic/morse-cdi-base</url>
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>http://www.opensource.org/licenses/mit-license.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
 
   <properties>
     <version.wildfly.swarm>2017.3.3</version.wildfly.swarm>
@@ -398,6 +411,7 @@
   </profiles>
 
   <scm>
+    <url>https://github.com/zamedic/morse-cdi-base.git</url>
     <developerConnection>
       scm:git:ssh://builder@default@autobot-wkbxttwhfapcogjk.us-east-1.opsworks-cm.io:8989/default/Marc/Morsecdi
     </developerConnection>
@@ -411,5 +425,12 @@
     </snapshotRepository>
   </distributionManagement>
 
+  <developers>
+    <developer>
+      <name>Marc Arndt</name>
+      <url>http://www.marcarndt.com</url>
+      <email>marc@marcarndt.com</email>
+    </developer>
+  </developers>
 
 </project>
