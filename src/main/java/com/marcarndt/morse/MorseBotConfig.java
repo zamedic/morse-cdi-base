@@ -1,19 +1,37 @@
 package com.marcarndt.morse;
 
 /**
- * Created by arndt on 2017/05/19.
+ * Class provides an interface for tall the configureation elements required by the Morse CDI Framework
  */
 public interface MorseBotConfig {
 
-  String getUsername();
+    /**
+     * @return Telegram Bot User Name
+     */
+    String getUsername();
 
-  String getKey();
+    /**
+     * @return Telegram Bot Key
+     */
+    String getKey();
 
-  String getMongoAddress();
+    /**
+     * @return Address of the Mongo Server
+     */
+    String getMongoAddress();
 
-  String getMongoDatabase();
+    /**
+     * @return Mongo Database Name
+     */
+    String getMongoDatabase();
 
-  String getProxyUrl();
+    /**
+     * @return Proxy for bot connections. Null if no proxy is required
+     */
+    String getProxyUrl();
 
-  int getProxyPort();
+    /**
+     * @return port for the bot proxy connection. Null is no proxy is required
+     */
+    int getProxyPort();
 }

@@ -165,11 +165,6 @@ public class ExponentialBackOff {
     multiplier = builder.multiplier;
     maxIntervalMillis = builder.maxIntervalMillis;
     maxElapsedTimeMillis = builder.maxElapsedTimeMillis;
-    Preconditions.checkArgument(initialIntervalMillis > 0);
-    Preconditions.checkArgument(0 <= randomizationFactor && randomizationFactor < 1);
-    Preconditions.checkArgument(multiplier >= 1);
-    Preconditions.checkArgument(maxIntervalMillis >= initialIntervalMillis);
-    Preconditions.checkArgument(maxElapsedTimeMillis > 0);
     reset();
   }
 

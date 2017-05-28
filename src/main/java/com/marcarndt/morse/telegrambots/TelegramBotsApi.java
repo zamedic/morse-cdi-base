@@ -5,6 +5,8 @@ import com.marcarndt.morse.telegrambots.generics.BotSession;
 import com.marcarndt.morse.telegrambots.generics.LongPollingBot;
 import com.marcarndt.morse.telegrambots.generics.Webhook;
 import com.marcarndt.morse.telegrambots.generics.WebhookBot;
+import com.marcarndt.morse.telegrambots.updatesreceivers.DefaultBotSession;
+
 import java.text.MessageFormat;
 
 /**
@@ -138,7 +140,8 @@ public class TelegramBotsApi {
    */
   public BotSession registerBot(LongPollingBot bot) throws TelegramApiRequestException {
     bot.clearWebhook();
-    BotSession session = ApiContext.getInstance(BotSession.class);
+    ApiContextInitializer.init();
+    BotSession session = new DefaultBotSession();
     session.setToken(bot.getBotToken());
     session.setOptions(bot.getOptions());
     session.setCallback(bot);

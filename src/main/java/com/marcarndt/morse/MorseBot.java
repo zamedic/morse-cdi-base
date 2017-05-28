@@ -4,6 +4,7 @@ package com.marcarndt.morse;
 import com.marcarndt.morse.command.BaseCommand;
 import com.marcarndt.morse.command.commandlets.Commandlet;
 import com.marcarndt.morse.service.StateService;
+import com.marcarndt.morse.telegrambots.TelegramBotsApi;
 import com.marcarndt.morse.telegrambots.api.methods.send.SendMessage;
 import com.marcarndt.morse.telegrambots.api.objects.Chat;
 import com.marcarndt.morse.telegrambots.api.objects.Contact;
@@ -17,6 +18,8 @@ import com.marcarndt.morse.telegrambots.api.objects.replykeyboard.buttons.Keyboa
 import com.marcarndt.morse.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import com.marcarndt.morse.telegrambots.bots.TelegramLongPollingCommandBot;
 import com.marcarndt.morse.telegrambots.exceptions.TelegramApiException;
+import com.marcarndt.morse.telegrambots.exceptions.TelegramApiRequestException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,14 +27,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
-/**
+/**   
  * Created by arndt on 2017/04/06.
  */
 @Singleton
+@Startup
 public class MorseBot extends TelegramLongPollingCommandBot {
 
   /**
@@ -152,6 +157,12 @@ public class MorseBot extends TelegramLongPollingCommandBot {
   public void setup() {
     for (BaseCommand baseCommand : commands) {
       register(baseCommand);
+    }
+    TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
+    try {
+      telegramBotsApi.registerBot(this);
+    } catch (TelegramApiRequestException e) {
+      e.printStackTrace();
     }
   }
 
