@@ -32,7 +32,7 @@ import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
-/**   
+/**
  * Created by arndt on 2017/04/06.
  */
 @Singleton
@@ -42,7 +42,7 @@ public class MorseBot extends TelegramLongPollingCommandBot {
   /**
    * Logger
    */
-  private static Logger LOG = Logger.getLogger(MorseBot.class.getName());
+  private static final Logger LOG = Logger.getLogger(MorseBot.class.getName());
 
   /**
    * State Service
@@ -71,20 +71,24 @@ public class MorseBot extends TelegramLongPollingCommandBot {
   private MorseBotConfig botConfig;
 
 
+  /**
+   * Instantiates a new Morse bot.
+   */
   public MorseBot() {
     super();
   }
 
   /**
    * Send a message with a reply keyboard to the user
+   *
    * @param user usser
    * @param chat chat
    * @param text to display in the chat
    * @param buttons String list of buttons
    */
-  public void sendReplyKeyboardMessage(User user, Chat chat, String text,
-      List<String> buttons) {
-    SendMessage sendMessage = new SendMessage();
+  public void sendReplyKeyboardMessage(final User user, final Chat chat, final String text,
+      final List<String> buttons) {
+    final SendMessage sendMessage = new SendMessage();
     sendMessage.setChatId(chat.getId());
     sendMessage.setText(text + " @" + BaseCommand.getUsername(user));
     sendMessage.setReplyMarkup(sendReplyKeyboardMarkup(buttons, chat.isGroupChat()));
@@ -93,40 +97,63 @@ public class MorseBot extends TelegramLongPollingCommandBot {
 
   /**
    * Send a message with a reply keyboard to the user
+   *
    * @param user usser
    * @param chat chat
    * @param text to display in the chat
    * @param buttons String array of buttons
    */
-  public void sendReplyKeyboardMessage(User user, Chat chat, String text,
-      String... buttons) {
+  public void sendReplyKeyboardMessage(final User user, final Chat chat, final String text,
+      final String... buttons) {
     sendReplyKeyboardMessage(user, chat, text, Arrays.asList(buttons));
   }
 
-  public void sendReplyKeyboardMessage(Message message, String text,
-      List<String> buttons) {
-    SendMessage sendMessage = new SendMessage();
+  /**
+   * Send reply keyboard message.
+   *
+   * @param message the message
+   * @param text the text
+   * @param buttons the buttons
+   */
+  public void sendReplyKeyboardMessage(final Message message, final String text,
+      final List<String> buttons) {
+    final SendMessage sendMessage = new SendMessage();
     sendMessage.setChatId(message.getChatId());
     sendMessage.setText(text + " @" + BaseCommand.getUsername(message));
     sendMessage.setReplyMarkup(sendReplyKeyboardMarkup(buttons, message.isGroupMessage()));
     sendMessage(sendMessage);
   }
 
-  public void sendReplyKeyboardMessage(Message message, String text,
-      String... buttons) {
+  /**
+   * Send reply keyboard message.
+   *
+   * @param message the message
+   * @param text the text
+   * @param buttons the buttons
+   */
+  public void sendReplyKeyboardMessage(final Message message, final String text,
+      final String... buttons) {
     sendReplyKeyboardMessage(message, text, Arrays.asList(buttons));
   }
 
-  public ReplyKeyboardMarkup sendReplyKeyboardMarkup(List<String> buttons, boolean isGroup) {
-    ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-    replyKeyboardMarkup.setOneTimeKeyboad(true);
-    replyKeyboardMarkup.setResizeKeyboard(true);
-    replyKeyboardMarkup.setSelective(isGroup);
+  /**
+   * Send reply keyboard markup reply keyboard markup.
+   *
+   * @param buttons the buttons
+   * @param isGroup the is group
+   * @return the reply keyboard markup
+   */
+  public ReplyKeyboardMarkup sendReplyKeyboardMarkup(final List<String> buttons,
+      final boolean isGroup) {
+    final ReplyKeyboardMarkup markup = new ReplyKeyboardMarkup();
+    markup.setOneTimeKeyboad(true);
+    markup.setResizeKeyboard(true);
+    markup.setSelective(isGroup);
 
-    List<KeyboardRow> keyboardRows = new ArrayList<>();
+    final List<KeyboardRow> keyboardRows = new ArrayList<>();
     int count = 0;
     KeyboardRow keyboardRow = new KeyboardRow();
-    for (String button : buttons) {
+    for (final String button : buttons) {
       keyboardRow.add(new KeyboardButton(button));
       count++;
       if (count % 2 == 0) {
@@ -138,36 +165,45 @@ public class MorseBot extends TelegramLongPollingCommandBot {
       keyboardRows.add(keyboardRow);
     }
 
-    replyKeyboardMarkup.setKeyboard(keyboardRows);
+    markup.setKeyboard(keyboardRows);
 
-    return replyKeyboardMarkup;
+    return markup;
   }
 
-  public void sendReplyMessage(Message message, String text) {
-    SendMessage sendMessage = new SendMessage();
+  /**
+   * Send reply message.
+   *
+   * @param message the message
+   * @param text the text
+   */
+  public void sendReplyMessage(final Message message, final String text) {
+    final SendMessage sendMessage = new SendMessage();
     sendMessage.setChatId(message.getChatId());
     sendMessage.setText(text + " @" + BaseCommand.getUsername(message));
-    ForceReplyKeyboard forceReplyKeyboard = new ForceReplyKeyboard();
-    forceReplyKeyboard.setSelective(true);
-    sendMessage.setReplyMarkup(forceReplyKeyboard);
+    final ForceReplyKeyboard keyboard = new ForceReplyKeyboard();
+    keyboard.setSelective(true);
+    sendMessage.setReplyMarkup(keyboard);
     sendMessage(sendMessage);
   }
 
+  /**
+   * Sets .
+   */
   @PostConstruct
   public void setup() {
-    for (BaseCommand baseCommand : commands) {
+    for (final BaseCommand baseCommand : commands) {
       register(baseCommand);
     }
-    TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
+    final TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
     try {
       telegramBotsApi.registerBot(this);
     } catch (TelegramApiRequestException e) {
-      e.printStackTrace();
+      LOG.log(Level.SEVERE, "Error creating morse bot", e);
     }
   }
 
   @Override
-  public void processNonCommandUpdate(Update update) {
+  public void processNonCommandUpdate(final Update update) {
     LOG.info("Receives update");
     if (update.getMessage().getNewChatMember() != null) {
       sendMessage("Ahhh Yeah, one more human to worship me. I am Bender!",
@@ -180,14 +216,14 @@ public class MorseBot extends TelegramLongPollingCommandBot {
       return;
     }
     if (update.getMessage().getContact() != null) {
-      Contact contact = update.getMessage().getContact();
+      final Contact contact = update.getMessage().getContact();
       sendMessage(
           contact.getFirstName() + " - " + contact.getLastName() + " " + contact.getUserID(),
           update.getMessage().getChatId().toString());
       return;
     }
     try {
-      String state = stateService
+      final String state = stateService
           .getUserState(update.getMessage().getFrom().getId(), update.getMessage().getChatId());
       handleUpdate(update.getMessage(), state);
       return;
@@ -201,7 +237,7 @@ public class MorseBot extends TelegramLongPollingCommandBot {
   }
 
   @Override
-  public Message sendMessage(SendMessage sendMessage) {
+  public Message sendMessage(final SendMessage sendMessage) {
     try {
       return super.sendMessage(sendMessage);
     } catch (TelegramApiException e) {
@@ -210,17 +246,21 @@ public class MorseBot extends TelegramLongPollingCommandBot {
     }
   }
 
-  private void handleUpdate(Message message, String command) {
-    LOG.info(
-        "Searching for commandlet to handle state " + command.toString() + " message " + message
-            .getText());
-    for (Commandlet commandlet : commandlets) {
+  private void handleUpdate(final Message message, final String command) {
+    if (LOG.isLoggable(Level.INFO)) {
+      LOG.info(
+          "Searching for commandlet to handle state " + command + " message " + message
+              .getText());
+    }
+    for (final Commandlet commandlet : commandlets) {
       if (commandlet.canHandleCommand(message, command)) {
-        LOG.info("Executing class " + commandlet.getClass().getName());
+        if (LOG.isLoggable(Level.INFO)) {
+          LOG.info("Executing class " + commandlet.getClass().getName());
+        }
         commandlet.handleCommand(message, command,
             stateService.getParameters(message.getFrom().getId(), message.getChatId()),
             this);
-        String newState = commandlet.getNewState(message, command);
+        final String newState = commandlet.getNewState(message, command);
         if (newState == null) {
           stateService.deleteState(message.getFrom().getId(), message.getChatId());
         } else {
@@ -243,8 +283,16 @@ public class MorseBot extends TelegramLongPollingCommandBot {
     return botConfig.getKey();
   }
 
-  public boolean sendMessage(String message, String key, boolean html) {
-    SendMessage sendMessage = new SendMessage();
+  /**
+   * Send message boolean.
+   *
+   * @param message the message
+   * @param key the key
+   * @param html the html
+   * @return the boolean
+   */
+  public boolean sendMessage(final String message, final String key, final boolean html) {
+    final SendMessage sendMessage = new SendMessage();
     sendMessage.enableHtml(html);
     sendMessage.setChatId(key);
     sendMessage.setText(message);
@@ -258,7 +306,14 @@ public class MorseBot extends TelegramLongPollingCommandBot {
     }
   }
 
-  public boolean sendMessage(String message, String key) {
+  /**
+   * Send message boolean.
+   *
+   * @param message the message
+   * @param key the key
+   * @return the boolean
+   */
+  public boolean sendMessage(final String message, final String key) {
     return sendMessage(message, key, false);
   }
 

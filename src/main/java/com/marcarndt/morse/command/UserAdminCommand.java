@@ -10,10 +10,10 @@ import com.marcarndt.morse.telegrambots.api.objects.User;
  */
 public class UserAdminCommand extends BaseCommand {
 
-  public static String USERADMIN = "user_admin";
-  public static String ADD_USER_TO_ROLE = "Add user to role";
-  public static String REMOVE_USER_TO_ROLE = "Remove user from role";
-  public static String DELETE_USER = "Delete user";
+  public final static String USERADMIN = "user_admin";
+  public final static String ADD_USER_TO_ROLE = "Add user to role";
+  public final static String REMOVE_USER_TO_ROLE = "Remove user from role";
+  public final static String DELETE_USER = "Delete user";
 
 
   @Override

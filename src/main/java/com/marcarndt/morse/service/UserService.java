@@ -19,10 +19,10 @@ import javax.inject.Inject;
 @Stateless
 public class UserService {
 
-  public static String UNAUTHENTICATED = "unauthenticated";
-  public static String USER = "user";
-  public static String ADMIN = "admin";
-  private static Logger LOG = Logger.getLogger(UserService.class.getName());
+  public final static String UNAUTHENTICATED = "unauthenticated";
+  public final static String USER = "user";
+  public final static String ADMIN = "admin";
+  private final static Logger LOG = Logger.getLogger(UserService.class.getName());
   @Inject
   MongoService mongoService;
   @Any
