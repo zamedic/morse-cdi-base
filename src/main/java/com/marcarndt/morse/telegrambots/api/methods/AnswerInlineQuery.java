@@ -60,14 +60,14 @@ public class AnswerInlineQuery extends BotApiMethod<Boolean> {
     return results;
   }
 
-  @JsonIgnore
-  public AnswerInlineQuery setResults(InlineQueryResult... results) {
-    this.results = Arrays.asList(results);
+  public AnswerInlineQuery setResults(List<InlineQueryResult> results) {
+    this.results = results;
     return this;
   }
 
-  public AnswerInlineQuery setResults(List<InlineQueryResult> results) {
-    this.results = results;
+  @JsonIgnore
+  public AnswerInlineQuery setResults(InlineQueryResult... results) {
+    this.results = Arrays.asList(results);
     return this;
   }
 

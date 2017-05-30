@@ -13,8 +13,6 @@
  */
 package com.marcarndt.morse.telegrambots.updatesreceivers;
 
-import com.google.common.base.Preconditions;
-
 /**
  * Implementation of BackOff that increases the back off period for each retry attempt using
  * a randomization function that grows exponentially.

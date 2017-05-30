@@ -19,7 +19,6 @@ import com.marcarndt.morse.telegrambots.api.objects.replykeyboard.buttons.Keyboa
 import com.marcarndt.morse.telegrambots.bots.TelegramLongPollingCommandBot;
 import com.marcarndt.morse.telegrambots.exceptions.TelegramApiException;
 import com.marcarndt.morse.telegrambots.exceptions.TelegramApiRequestException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

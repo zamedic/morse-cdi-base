@@ -30,14 +30,14 @@ public class LeaveChat extends BotApiMethod<Boolean> {
     return chatId;
   }
 
-  public LeaveChat setChatId(Long chatId) {
-    Objects.requireNonNull(chatId);
-    this.chatId = chatId.toString();
+  public LeaveChat setChatId(String chatId) {
+    this.chatId = chatId;
     return this;
   }
 
-  public LeaveChat setChatId(String chatId) {
-    this.chatId = chatId;
+  public LeaveChat setChatId(Long chatId) {
+    Objects.requireNonNull(chatId);
+    this.chatId = chatId.toString();
     return this;
   }
 

@@ -51,14 +51,14 @@ public class SendLocation extends BotApiMethod<Message> {
     return chatId;
   }
 
-  public SendLocation setChatId(Long chatId) {
-    Objects.requireNonNull(chatId);
-    this.chatId = chatId.toString();
+  public SendLocation setChatId(String chatId) {
+    this.chatId = chatId;
     return this;
   }
 
-  public SendLocation setChatId(String chatId) {
-    this.chatId = chatId;
+  public SendLocation setChatId(Long chatId) {
+    Objects.requireNonNull(chatId);
+    this.chatId = chatId.toString();
     return this;
   }
 
