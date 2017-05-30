@@ -1,6 +1,5 @@
 package com.marcarndt.morse;
 
-
 import com.marcarndt.morse.command.BaseCommand;
 import com.marcarndt.morse.command.commandlets.Commandlet;
 import com.marcarndt.morse.service.StateService;
@@ -19,6 +18,7 @@ import com.marcarndt.morse.telegrambots.api.objects.replykeyboard.buttons.Keyboa
 import com.marcarndt.morse.telegrambots.bots.TelegramLongPollingCommandBot;
 import com.marcarndt.morse.telegrambots.exceptions.TelegramApiException;
 import com.marcarndt.morse.telegrambots.exceptions.TelegramApiRequestException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,32 +39,32 @@ import javax.inject.Inject;
 public class MorseBot extends TelegramLongPollingCommandBot {
 
   /**
-   * Logger
+   * Logger.
    */
   private static final Logger LOG = Logger.getLogger(MorseBot.class.getName());
 
   /**
-   * State Service
+   * State Service.
    */
   @Inject
   private StateService stateService;
 
   /**
-   * Commandlets as discovered by CDI
+   * Commandlets as discovered by CDI.
    */
   @Inject
   @Any
   private Instance<Commandlet> commandlets;
 
   /**
-   * All the base commands
+   * All the base commands.
    */
   @Inject
   @Any
   private Instance<BaseCommand> commands;
 
   /**
-   * Config
+   * Config.
    */
   @Inject
   private MorseBotConfig botConfig;
@@ -78,7 +78,7 @@ public class MorseBot extends TelegramLongPollingCommandBot {
   }
 
   /**
-   * Send a message with a reply keyboard to the user
+   * Send a message with a reply keyboard to the user.
    *
    * @param user usser
    * @param chat chat
@@ -95,7 +95,7 @@ public class MorseBot extends TelegramLongPollingCommandBot {
   }
 
   /**
-   * Send a message with a reply keyboard to the user
+   * Send a message with a reply keyboard to the user.
    *
    * @param user usser
    * @param chat chat
@@ -245,43 +245,6 @@ public class MorseBot extends TelegramLongPollingCommandBot {
     }
   }
 
-  private void handleUpdate(final Message message, final String command) {
-    if (LOG.isLoggable(Level.INFO)) {
-      LOG.info(
-          "Searching for commandlet to handle state " + command + " message " + message
-              .getText());
-    }
-    for (final Commandlet commandlet : commandlets) {
-      if (commandlet.canHandleCommand(message, command)) {
-        if (LOG.isLoggable(Level.INFO)) {
-          LOG.info("Executing class " + commandlet.getClass().getName());
-        }
-        commandlet.handleCommand(message, command,
-            stateService.getParameters(message.getFrom().getId(), message.getChatId()),
-            this);
-        final String newState = commandlet.getNewState(message, command);
-        if (newState == null) {
-          stateService.deleteState(message.getFrom().getId(), message.getChatId());
-        } else {
-          stateService.setState(message.getFrom().getId(), message.getChatId(), newState,
-              commandlet.getNewStateParams(message, command,
-                  stateService.getParameters(message.getFrom().getId(), message.getChatId())));
-        }
-      }
-    }
-  }
-
-
-  @Override
-  public String getBotUsername() {
-    return botConfig.getUsername();
-  }
-
-  @Override
-  public String getBotToken() {
-    return botConfig.getKey();
-  }
-
   /**
    * Send message boolean.
    *
@@ -314,6 +277,42 @@ public class MorseBot extends TelegramLongPollingCommandBot {
    */
   public boolean sendMessage(final String message, final String key) {
     return sendMessage(message, key, false);
+  }
+
+  private void handleUpdate(final Message message, final String command) {
+    if (LOG.isLoggable(Level.INFO)) {
+      LOG.info(
+          "Searching for commandlet to handle state " + command + " message " + message
+              .getText());
+    }
+    for (final Commandlet commandlet : commandlets) {
+      if (commandlet.canHandleCommand(message, command)) {
+        if (LOG.isLoggable(Level.INFO)) {
+          LOG.info("Executing class " + commandlet.getClass().getName());
+        }
+        commandlet.handleCommand(message, command,
+            stateService.getParameters(message.getFrom().getId(), message.getChatId()),
+            this);
+        final String newState = commandlet.getNewState(message, command);
+        if (newState == null) {
+          stateService.deleteState(message.getFrom().getId(), message.getChatId());
+        } else {
+          stateService.setState(message.getFrom().getId(), message.getChatId(), newState,
+              commandlet.getNewStateParams(message, command,
+                  stateService.getParameters(message.getFrom().getId(), message.getChatId())));
+        }
+      }
+    }
+  }
+
+  @Override
+  public String getBotUsername() {
+    return botConfig.getUsername();
+  }
+
+  @Override
+  public String getBotToken() {
+    return botConfig.getKey();
   }
 
 }
