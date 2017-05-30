@@ -13,8 +13,6 @@
  */
 package com.marcarndt.morse.telegrambots.updatesreceivers;
 
-import com.google.common.base.Preconditions;
-
 /**
  * Implementation of BackOff that increases the back off period for each retry attempt using
  * a randomization function that grows exponentially.
@@ -78,28 +76,28 @@ public class ExponentialBackOff {
   /**
    * The default initial interval value in milliseconds (0.5 seconds).
    */
-  public static int DEFAULT_INITIAL_INTERVAL_MILLIS = 500;
+  public final static int DEFAULT_INITIAL_INTERVAL_MILLIS = 500;
 
   /**
    * The default randomization factor (0.5 which results in a random period ranging between 50%
    * below and 50% above the retry interval).
    */
-  public static double DEFAULT_RANDOMIZATION_FACTOR = 0.5;
+  public final static double DEFAULT_RANDOMIZATION_FACTOR = 0.5;
 
   /**
    * The default multiplier value (1.5 which is 50% increase per back off).
    */
-  public static double DEFAULT_MULTIPLIER = 1.5;
+  public final static double DEFAULT_MULTIPLIER = 1.5;
 
   /**
    * The default maximum back off time in milliseconds (15 minutes).
    */
-  public static int DEFAULT_MAX_INTERVAL_MILLIS = 30000;
+  public final static int DEFAULT_MAX_INTERVAL_MILLIS = 30000;
 
   /**
    * The default maximum elapsed time in milliseconds (60 minutes).
    */
-  public static int DEFAULT_MAX_ELAPSED_TIME_MILLIS = 3600000;
+  public final static int DEFAULT_MAX_ELAPSED_TIME_MILLIS = 3600000;
   /**
    * The system time in nanoseconds. It is calculated when an ExponentialBackOffPolicy instance is
    * created and is reset when {@link #reset()} is called.
@@ -165,11 +163,6 @@ public class ExponentialBackOff {
     multiplier = builder.multiplier;
     maxIntervalMillis = builder.maxIntervalMillis;
     maxElapsedTimeMillis = builder.maxElapsedTimeMillis;
-    Preconditions.checkArgument(initialIntervalMillis > 0);
-    Preconditions.checkArgument(0 <= randomizationFactor && randomizationFactor < 1);
-    Preconditions.checkArgument(multiplier >= 1);
-    Preconditions.checkArgument(maxIntervalMillis >= initialIntervalMillis);
-    Preconditions.checkArgument(maxElapsedTimeMillis > 0);
     reset();
   }
 

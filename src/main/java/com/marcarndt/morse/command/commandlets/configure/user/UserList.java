@@ -17,8 +17,8 @@ import javax.inject.Inject;
 @Stateless
 public class UserList implements Commandlet {
 
-  public static String USER_ADD_ROLE = "User Add Role";
-  public static String USER_DELETE_ROLE = "User Delete Role";
+  public final static String USER_ADD_ROLE = "User Add Role";
+  public final static String USER_DELETE_ROLE = "User Delete Role";
   @Inject
   UserService userService;
 

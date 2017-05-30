@@ -71,6 +71,11 @@ public class SetGameScore extends BotApiMethod<Serializable> {
     return chatId;
   }
 
+  public SetGameScore setChatId(String chatId) {
+    this.chatId = chatId;
+    return this;
+  }
+
   public SetGameScore setChatId(Long chatId) {
     Objects.requireNonNull(chatId);
     this.chatId = chatId.toString();
@@ -128,11 +133,6 @@ public class SetGameScore extends BotApiMethod<Serializable> {
 
   public SetGameScore setForce(Boolean force) {
     this.force = force;
-    return this;
-  }
-
-  public SetGameScore setChatId(String chatId) {
-    this.chatId = chatId;
     return this;
   }
 

@@ -65,14 +65,14 @@ public class SendGame extends BotApiMethod<Message> {
     return chatId;
   }
 
-  public SendGame setChatId(Long chatId) {
-    Objects.requireNonNull(chatId);
-    this.chatId = chatId.toString();
+  public SendGame setChatId(String chatId) {
+    this.chatId = chatId;
     return this;
   }
 
-  public SendGame setChatId(String chatId) {
-    this.chatId = chatId;
+  public SendGame setChatId(Long chatId) {
+    Objects.requireNonNull(chatId);
+    this.chatId = chatId.toString();
     return this;
   }
 

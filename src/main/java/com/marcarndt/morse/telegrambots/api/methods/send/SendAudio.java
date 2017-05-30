@@ -73,14 +73,14 @@ public class SendAudio extends PartialBotApiMethod<Message> {
     return chatId;
   }
 
-  public SendAudio setChatId(Long chatId) {
-    Objects.requireNonNull(chatId);
-    this.chatId = chatId.toString();
+  public SendAudio setChatId(String chatId) {
+    this.chatId = chatId;
     return this;
   }
 
-  public SendAudio setChatId(String chatId) {
-    this.chatId = chatId;
+  public SendAudio setChatId(Long chatId) {
+    Objects.requireNonNull(chatId);
+    this.chatId = chatId.toString();
     return this;
   }
 
@@ -94,7 +94,6 @@ public class SendAudio extends PartialBotApiMethod<Message> {
    * @param audio File_id of the audio to send
    *
    * The file_id must have already been received or sent by your bot
-   *
    * @return sendaudio object
    */
   public SendAudio setAudio(String audio) {
@@ -170,7 +169,6 @@ public class SendAudio extends PartialBotApiMethod<Message> {
    * Use this method to set the audio to a new file
    *
    * @param file New audio file
-   *
    * @return sendaudio object
    */
   public SendAudio setNewAudio(File file) {

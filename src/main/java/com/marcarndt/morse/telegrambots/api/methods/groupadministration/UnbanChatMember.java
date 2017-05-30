@@ -33,14 +33,14 @@ public class UnbanChatMember extends BotApiMethod<Boolean> {
     return chatId;
   }
 
-  public UnbanChatMember setChatId(Long chatId) {
-    Objects.requireNonNull(chatId);
-    this.chatId = chatId.toString();
+  public UnbanChatMember setChatId(String chatId) {
+    this.chatId = chatId;
     return this;
   }
 
-  public UnbanChatMember setChatId(String chatId) {
-    this.chatId = chatId;
+  public UnbanChatMember setChatId(Long chatId) {
+    Objects.requireNonNull(chatId);
+    this.chatId = chatId.toString();
     return this;
   }
 

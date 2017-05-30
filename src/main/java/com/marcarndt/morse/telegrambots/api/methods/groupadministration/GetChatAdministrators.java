@@ -32,14 +32,14 @@ public class GetChatAdministrators extends BotApiMethod<ArrayList<ChatMember>> {
     return chatId;
   }
 
-  public GetChatAdministrators setChatId(Long chatId) {
-    Objects.requireNonNull(chatId);
-    this.chatId = chatId.toString();
+  public GetChatAdministrators setChatId(String chatId) {
+    this.chatId = chatId;
     return this;
   }
 
-  public GetChatAdministrators setChatId(String chatId) {
-    this.chatId = chatId;
+  public GetChatAdministrators setChatId(Long chatId) {
+    Objects.requireNonNull(chatId);
+    this.chatId = chatId.toString();
     return this;
   }
 

@@ -71,14 +71,14 @@ public class SendVoice extends PartialBotApiMethod<Message> {
     return chatId;
   }
 
-  public SendVoice setChatId(Long chatId) {
-    Objects.requireNonNull(chatId);
-    this.chatId = chatId.toString();
+  public SendVoice setChatId(String chatId) {
+    this.chatId = chatId;
     return this;
   }
 
-  public SendVoice setChatId(String chatId) {
-    this.chatId = chatId;
+  public SendVoice setChatId(Long chatId) {
+    Objects.requireNonNull(chatId);
+    this.chatId = chatId.toString();
     return this;
   }
 

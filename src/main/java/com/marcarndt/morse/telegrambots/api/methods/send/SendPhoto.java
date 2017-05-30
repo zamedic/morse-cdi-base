@@ -50,14 +50,14 @@ public class SendPhoto extends PartialBotApiMethod<Message> {
     return chatId;
   }
 
-  public SendPhoto setChatId(Long chatId) {
-    Objects.requireNonNull(chatId);
-    this.chatId = chatId.toString();
+  public SendPhoto setChatId(String chatId) {
+    this.chatId = chatId;
     return this;
   }
 
-  public SendPhoto setChatId(String chatId) {
-    this.chatId = chatId;
+  public SendPhoto setChatId(Long chatId) {
+    Objects.requireNonNull(chatId);
+    this.chatId = chatId.toString();
     return this;
   }
 
