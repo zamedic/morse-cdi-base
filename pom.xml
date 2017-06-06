@@ -4,7 +4,7 @@
 
   <groupId>com.marcarndt.morse</groupId>
   <artifactId>base</artifactId>
-  <version>1.0.18</version>
+  <version>1.0.18-SNAPSHOT</version>
   <name>Morse CDI Telegram Base</name>
   <description>A Telegram bot build using CDI to create a plugable bot. This is the base project
     with provides the basic framework.
@@ -409,7 +409,7 @@
     <developerConnection>
       scm:git:ssh://builder@default@autobot-wkbxttwhfapcogjk.us-east-1.opsworks-cm.io:8989/default/Marc/Morsecdi
     </developerConnection>
-    <tag>v1.0.18</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <distributionManagement>
