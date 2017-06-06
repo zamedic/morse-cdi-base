@@ -5,6 +5,7 @@ import com.mongodb.MongoClient;
 import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
+import javax.enterprise.inject.spi.Extension;
 import javax.inject.Inject;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
@@ -25,7 +26,6 @@ public class MongoService {
   @PostConstruct
   public void connect() {
     Morphia morphia = new Morphia();
-    morphia.mapPackage("com.marcarndt.morsemonkey.service.data");
 
     Reflections reflections = new Reflections();
     Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(Entity.class);

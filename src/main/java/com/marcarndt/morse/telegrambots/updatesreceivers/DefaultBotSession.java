@@ -3,7 +3,6 @@ package com.marcarndt.morse.telegrambots.updatesreceivers;
 import static com.marcarndt.morse.telegrambots.Constants.SOCKET_TIMEOUT;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.inject.Inject;
 import com.marcarndt.morse.telegrambots.ApiConstants;
 import com.marcarndt.morse.telegrambots.api.methods.updates.GetUpdates;
 import com.marcarndt.morse.telegrambots.api.objects.Update;
@@ -54,7 +53,6 @@ public class DefaultBotSession implements BotSession {
   private int lastReceivedUpdate = 0;
   private DefaultBotOptions options;
 
-  @Inject
   public DefaultBotSession() {
   }
 

@@ -1,9 +1,6 @@
 package com.marcarndt.morse.telegrambots;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Singleton;
+
 import com.marcarndt.morse.telegrambots.logging.BotLogger;
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -16,13 +13,9 @@ import java.util.Map;
 public class ApiContext {
 
   private static Object lock = new Object();
-  private static Injector INJECTOR;
   private static Map<Class, Class> bindings = new HashMap<>();
   private static Map<Class, Class> singletonBindings = new HashMap<>();
 
-  public static <T> T getInstance(Class<T> type) {
-    return getInjector().getInstance(type);
-  }
 
   public static <T, S extends T> void register(Class<T> type, Class<S> implementation) {
     if (bindings.containsKey(type)) {
@@ -40,27 +33,6 @@ public class ApiContext {
     singletonBindings.put(type, implementation);
   }
 
-  private static Injector getInjector() {
-    if (INJECTOR == null) {
-      synchronized (lock) {
-        if (INJECTOR == null) {
-          INJECTOR = Guice.createInjector(new ApiModule());
-        }
-      }
-    }
-    return INJECTOR;
-  }
 
-  private static class ApiModule extends AbstractModule {
 
-    @Override
-    protected void configure() {
-      for (Map.Entry<Class, Class> binding : bindings.entrySet()) {
-        bind(binding.getKey()).to(binding.getValue());
-      }
-      for (Map.Entry<Class, Class> binding : singletonBindings.entrySet()) {
-        bind(binding.getKey()).to(binding.getValue()).in(Singleton.class);
-      }
-    }
-  }
 }

@@ -6,6 +6,7 @@ import com.marcarndt.morse.telegrambots.generics.LongPollingBot;
 import com.marcarndt.morse.telegrambots.generics.Webhook;
 import com.marcarndt.morse.telegrambots.generics.WebhookBot;
 import com.marcarndt.morse.telegrambots.updatesreceivers.DefaultBotSession;
+import com.marcarndt.morse.telegrambots.updatesreceivers.DefaultWebhook;
 import java.text.MessageFormat;
 
 /**
@@ -48,7 +49,7 @@ public class TelegramBotsApi {
 
     this.useWebhook = true;
     this.extrenalUrl = fixExternalUrl(externalUrl);
-    webhook = ApiContext.getInstance(Webhook.class);
+    webhook = new DefaultWebhook();
     webhook.setInternalUrl(internalUrl);
     webhook.startServer();
   }
@@ -79,7 +80,7 @@ public class TelegramBotsApi {
 
     this.useWebhook = true;
     this.extrenalUrl = fixExternalUrl(externalUrl);
-    webhook = ApiContext.getInstance(Webhook.class);
+    webhook = new DefaultWebhook();
     webhook.setInternalUrl(internalUrl);
     webhook.setKeyStore(keyStore, keyStorePassword);
     webhook.startServer();
@@ -116,7 +117,7 @@ public class TelegramBotsApi {
     this.useWebhook = true;
     this.extrenalUrl = fixExternalUrl(externalUrl);
     this.pathToCertificate = pathToCertificate;
-    webhook = ApiContext.getInstance(Webhook.class);
+    webhook = new DefaultWebhook();
     webhook.setInternalUrl(internalUrl);
     webhook.setKeyStore(keyStore, keyStorePassword);
     webhook.startServer();
