@@ -8,7 +8,8 @@
     "path": ".delivery/build_cookbook"
   },
   "truck": {
-    "single_level_project": "true"
+    "single_level_project": "true",
+    "skip_functional_tests": "true"
   },
   "skip_phases": [],
   "build_nodes": {},
