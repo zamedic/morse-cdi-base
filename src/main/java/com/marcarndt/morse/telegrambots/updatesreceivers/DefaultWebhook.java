@@ -1,6 +1,5 @@
 package com.marcarndt.morse.telegrambots.updatesreceivers;
 
-import com.google.inject.Inject;
 import com.marcarndt.morse.telegrambots.exceptions.TelegramApiRequestException;
 import com.marcarndt.morse.telegrambots.generics.Webhook;
 import com.marcarndt.morse.telegrambots.generics.WebhookBot;
@@ -26,7 +25,6 @@ public class DefaultWebhook implements Webhook {
 
   private RestApi restApi;
 
-  @Inject
   public DefaultWebhook() throws TelegramApiRequestException {
     this.restApi = new RestApi();
   }
