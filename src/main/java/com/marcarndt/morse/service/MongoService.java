@@ -2,6 +2,10 @@ package com.marcarndt.morse.service;
 
 import com.marcarndt.morse.MorseBotConfig;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -33,8 +37,12 @@ public class MongoService {
       morphia.map(entity);
     }
 
+    List<MongoCredential> credentialsList = new ArrayList<MongoCredential>();
+    credentialsList.add(MongoCredential.createCredential(config.getMongoUser(),config.getMongoAddress(),config.getMongoPassword().toCharArray()));
+    ServerAddress addr = new ServerAddress(config.getMongoAddress());
+
     datastore = morphia
-        .createDatastore(new MongoClient(config.getMongoAddress()), config.getMongoDatabase());
+        .createDatastore(new MongoClient(addr,credentialsList),config.getMongoDatabase());
     datastore.ensureIndexes();
 
   }
