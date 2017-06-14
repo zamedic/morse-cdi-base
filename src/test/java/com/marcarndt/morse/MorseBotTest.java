@@ -88,6 +88,7 @@ public class MorseBotTest {
     }
     when(closeableHttpResponse.getEntity()).thenReturn(httpEntity);
     when(message.getFrom()).thenReturn(user);
+    when(message.getChatId()).thenReturn(12345l);
   }
 
   @Test
@@ -103,7 +104,6 @@ public class MorseBotTest {
 
   @Test
   public void sendReplyKeyboardMessage2() throws Exception {
-
     morseBot.sendReplyKeyboardMessage(message, "test", "test", "test2");
   }
 
@@ -115,10 +115,13 @@ public class MorseBotTest {
 
   @Test
   public void sendReplyKeyboardMarkup() throws Exception {
+    List buttons = Arrays.asList("test", "test2");
+    morseBot.sendReplyKeyboardMarkup(buttons,false);
   }
 
   @Test
   public void sendReplyMessage() throws Exception {
+    morseBot.sendReplyMessage(message, "Test");
   }
 
   @Test
