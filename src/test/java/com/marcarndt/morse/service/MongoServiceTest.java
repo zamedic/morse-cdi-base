@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -85,6 +86,9 @@ public class MongoServiceTest {
     when(morphia.createDatastore(mongoClient, "testDB")).thenReturn(datastore);
 
     mongoService.connect();
+    Datastore localDataStore = mongoService.getDatastore();
+
+    Assert.assertEquals(datastore,localDataStore);
 
     verify(morphia).map(User.class);
     verify(morphia).map(UserChatState.class);
@@ -92,8 +96,5 @@ public class MongoServiceTest {
     verify(datastore).ensureIndexes();
   }
 
-  @Test
-  public void getDatastore() throws Exception {
-  }
 
 }
