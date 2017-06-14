@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
-import javax.enterprise.inject.spi.Extension;
 import javax.inject.Inject;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
@@ -38,11 +37,15 @@ public class MongoService {
     }
 
     List<MongoCredential> credentialsList = new ArrayList<MongoCredential>();
-    credentialsList.add(MongoCredential.createCredential(config.getMongoUser(),config.getMongoAddress(),config.getMongoPassword().toCharArray()));
+    MongoCredential mongoCredential = MongoCredential
+        .createCredential(config.getMongoUser(), config.getMongoDatabase(),
+            config.getMongoPassword().toCharArray());
+    credentialsList.add(mongoCredential);
     ServerAddress addr = new ServerAddress(config.getMongoAddress());
+    MongoClient client = new MongoClient(addr, credentialsList);
 
     datastore = morphia
-        .createDatastore(new MongoClient(addr,credentialsList),config.getMongoDatabase());
+        .createDatastore(client, config.getMongoDatabase());
     datastore.ensureIndexes();
 
   }
