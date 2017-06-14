@@ -21,28 +21,37 @@ import org.reflections.Reflections;
 @Singleton
 public class MongoService {
 
+  /**
+   * CDI Injected Config details
+   */
   @Inject
-  MorseBotConfig config;
+  private MorseBotConfig config;
 
+  /**
+   * Datastore
+   */
   private Datastore datastore;
 
+  /**
+   * Connect.
+   */
   @PostConstruct
   public void connect() {
-    Morphia morphia = new Morphia();
+    final Morphia morphia = new Morphia();
 
-    Reflections reflections = new Reflections();
-    Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(Entity.class);
-    for (Class<?> entity : annotated) {
+    final Reflections reflections = new Reflections();
+    final Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(Entity.class);
+    for (final Class<?> entity : annotated) {
       morphia.map(entity);
     }
 
-    List<MongoCredential> credentialsList = new ArrayList<MongoCredential>();
-    MongoCredential mongoCredential = MongoCredential
+    final List<MongoCredential> credentialsList = new ArrayList<MongoCredential>();
+    final MongoCredential mongoCredential = MongoCredential
         .createCredential(config.getMongoUser(), config.getMongoDatabase(),
             config.getMongoPassword().toCharArray());
     credentialsList.add(mongoCredential);
-    ServerAddress addr = new ServerAddress(config.getMongoAddress());
-    MongoClient client = new MongoClient(addr, credentialsList);
+    final ServerAddress addr = new ServerAddress(config.getMongoAddress());
+    final MongoClient client = new MongoClient(addr, credentialsList);
 
     datastore = morphia
         .createDatastore(client, config.getMongoDatabase());
@@ -50,6 +59,11 @@ public class MongoService {
 
   }
 
+  /**
+   * Gets datastore.
+   *
+   * @return the datastore
+   */
   public Datastore getDatastore() {
     return datastore;
   }
