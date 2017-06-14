@@ -88,6 +88,7 @@ public class MorseBotTest {
     }
     when(closeableHttpResponse.getEntity()).thenReturn(httpEntity);
     when(message.getFrom()).thenReturn(user);
+    when(message.getChatId()).thenReturn(12345l);
   }
 
   @Test
@@ -120,6 +121,7 @@ public class MorseBotTest {
 
   @Test
   public void sendReplyMessage() throws Exception {
+    morseBot.sendReplyMessage(message, "Test");
   }
 
   @Test
