@@ -4,7 +4,7 @@
 
   <groupId>com.marcarndt.morse</groupId>
   <artifactId>base</artifactId>
-  <version>1.1.1-SNAPSHOT</version>
+  <version>1.1.2-SNAPSHOT</version>
   <name>Morse CDI Telegram Base</name>
   <description>A Telegram bot build using CDI to create a plugable bot. This is the base project
     with provides the basic framework.
@@ -172,12 +172,6 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.19.1</version>
         <configuration>
-          <skipTests>${skip.unit.tests}</skipTests>
-          <parallel>all</parallel>
-          <perCoreThreadCount>true</perCoreThreadCount>
-          <threadCount>2</threadCount>
-          <forkCount>2C</forkCount>
-          <reuseForks>true</reuseForks>
           <additionalClasspathElements>
             <additionalClasspathElement>src/main/webapp/</additionalClasspathElement>
           </additionalClasspathElements>
