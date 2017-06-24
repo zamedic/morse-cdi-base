@@ -12,6 +12,7 @@ import com.marcarndt.morse.data.User;
 import com.marcarndt.morse.data.UserChatState;
 import com.marcarndt.morse.data.UserRole;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ import org.reflections.Reflections;
  * Created by arndt on 2017/06/08.
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({MongoService.class, MongoCredential.class, ServerAddress.class, MongoClient.class, ArrayList.class})
+@PrepareForTest({MongoService.class, MongoClient.class, MongoClientURI.class})
 public class MongoServiceTest {
 
   @Mock
@@ -47,13 +48,11 @@ public class MongoServiceTest {
   @Mock
   MorseBotConfig morseBotConfig;
   @Mock
-  MongoCredential  mongoCredential;
-  @Mock
-  ServerAddress serverAddress;
-  @Mock
   MongoClient mongoClient;
   @Mock
   Datastore datastore;
+  @Mock
+  MongoClientURI mongoClientURI;
   @InjectMocks
   MongoService mongoService;
 
@@ -62,8 +61,6 @@ public class MongoServiceTest {
   public void connect() throws Exception {
     whenNew(Morphia.class).withNoArguments().thenReturn(morphia);
     whenNew(Reflections.class).withParameterTypes(Object[].class).withArguments(ArgumentMatchers.any()).thenReturn(reflections);
-    PowerMockito.mockStatic(MongoCredential.class);
-
     Set<Class<?>> classes = new HashSet<>();
     classes.add(User.class);
     classes.add(UserChatState.class);
@@ -74,14 +71,10 @@ public class MongoServiceTest {
     when(morseBotConfig.getMongoPassword()).thenReturn("testPassword");
     when(morseBotConfig.getMongoAddress()).thenReturn("testAddress");
 
-    when(MongoCredential.createCredential("testUser","testDB","testPassword".toCharArray())).thenReturn(mongoCredential);
-    List<MongoCredential> credentialsList = new ArrayList<MongoCredential>();
-    credentialsList.add(mongoCredential);
 
+    whenNew(MongoClientURI.class).withParameterTypes(String.class).withArguments("mongodb://testUser:testPassword@testAddress").thenReturn(mongoClientURI);
 
-    whenNew(ServerAddress.class).withArguments("testAddress").thenReturn(serverAddress);
-
-    whenNew(MongoClient.class).withParameterTypes(ServerAddress.class,List.class).withArguments(eq(serverAddress),eq(credentialsList)).thenReturn(mongoClient);
+    whenNew(MongoClient.class).withParameterTypes(MongoClientURI.class).withArguments(mongoClientURI).thenReturn(mongoClient);
 
     when(morphia.createDatastore(mongoClient, "testDB")).thenReturn(datastore);
 
