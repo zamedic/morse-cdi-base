@@ -25,18 +25,18 @@ public class MongoService {
   /**
    * Logger
    */
-  static final Logger LOG = Logger.getLogger(MongoService.class.getName());
+  private static final Logger LOG = Logger.getLogger(MongoService.class.getName());
 
   /**
    * CDI Injected Config details
    */
   @Inject
-  private MorseBotConfig config;
+  private transient MorseBotConfig config;
 
   /**
    * Datastore
    */
-  private Datastore datastore;
+  private transient Datastore datastore;
 
   /**
    * Connect.
