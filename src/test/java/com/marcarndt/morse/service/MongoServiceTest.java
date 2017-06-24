@@ -1,8 +1,5 @@
 package com.marcarndt.morse.service;
 
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
@@ -12,23 +9,18 @@ import com.marcarndt.morse.data.User;
 import com.marcarndt.morse.data.UserChatState;
 import com.marcarndt.morse.data.UserRole;
 import com.mongodb.MongoClient;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
-import java.util.ArrayList;
+import com.mongodb.MongoClientURI;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.annotations.Entity;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.reflections.Reflections;
@@ -37,63 +29,87 @@ import org.reflections.Reflections;
  * Created by arndt on 2017/06/08.
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({MongoService.class, MongoCredential.class, ServerAddress.class, MongoClient.class, ArrayList.class})
+@PrepareForTest({MongoService.class, MongoClient.class, MongoClientURI.class})
 public class MongoServiceTest {
 
+  /**
+   * The Morphia.
+   */
   @Mock
-  Morphia morphia;
+  private transient Morphia morphia;
+  /**
+   * The Reflections.
+   */
   @Mock
-  Reflections reflections;
+  private transient Reflections reflections;
+  /**
+   * The Morse bot config.
+   */
   @Mock
-  MorseBotConfig morseBotConfig;
+  private transient MorseBotConfig morseBotConfig;
+  /**
+   * The Mongo client.
+   */
   @Mock
-  MongoCredential  mongoCredential;
+  private transient MongoClient mongoClient;
+  /**
+   * The Datastore.
+   */
   @Mock
-  ServerAddress serverAddress;
+  private transient Datastore datastore;
+  /**
+   * The Mongo client uri.
+   */
   @Mock
-  MongoClient mongoClient;
-  @Mock
-  Datastore datastore;
+  private transient MongoClientURI mongoClientURI;
+  /**
+   * The Mongo service.
+   */
   @InjectMocks
-  MongoService mongoService;
+  private transient MongoService mongoService;
 
 
+  /**
+   * Connect.
+   *
+   * @throws Exception the exception
+   */
   @Test
-  public void connect() throws Exception {
-    whenNew(Morphia.class).withNoArguments().thenReturn(morphia);
-    whenNew(Reflections.class).withParameterTypes(Object[].class).withArguments(ArgumentMatchers.any()).thenReturn(reflections);
-    PowerMockito.mockStatic(MongoCredential.class);
+  public void connect() {
+    try {
+      whenNew(Morphia.class).withNoArguments().thenReturn(morphia);
+      whenNew(Reflections.class).withParameterTypes(Object[].class)
+          .withArguments(ArgumentMatchers.any()).thenReturn(reflections);
+      final Set<Class<?>> classes = new HashSet<>();
+      classes.add(User.class);
+      classes.add(UserChatState.class);
+      classes.add(UserRole.class);
+      when(reflections.getTypesAnnotatedWith(Entity.class)).thenReturn(classes);
+      when(morseBotConfig.getMongoUser()).thenReturn("testUser");
+      when(morseBotConfig.getMongoDatabase()).thenReturn("testDB");
+      when(morseBotConfig.getMongoPassword()).thenReturn("testPassword");
+      when(morseBotConfig.getMongoAddress()).thenReturn("testAddress");
 
-    Set<Class<?>> classes = new HashSet<>();
-    classes.add(User.class);
-    classes.add(UserChatState.class);
-    classes.add(UserRole.class);
-    when(reflections.getTypesAnnotatedWith(Entity.class)).thenReturn(classes);
-    when(morseBotConfig.getMongoUser()).thenReturn("testUser");
-    when(morseBotConfig.getMongoDatabase()).thenReturn("testDB");
-    when(morseBotConfig.getMongoPassword()).thenReturn("testPassword");
-    when(morseBotConfig.getMongoAddress()).thenReturn("testAddress");
+      whenNew(MongoClientURI.class).withParameterTypes(String.class)
+          .withArguments("mongodb://testUser:testPassword@testAddress").thenReturn(mongoClientURI);
 
-    when(MongoCredential.createCredential("testUser","testDB","testPassword".toCharArray())).thenReturn(mongoCredential);
-    List<MongoCredential> credentialsList = new ArrayList<MongoCredential>();
-    credentialsList.add(mongoCredential);
+      whenNew(MongoClient.class).withParameterTypes(MongoClientURI.class)
+          .withArguments(mongoClientURI).thenReturn(mongoClient);
 
+      when(morphia.createDatastore(mongoClient, "testDB")).thenReturn(datastore);
 
-    whenNew(ServerAddress.class).withArguments("testAddress").thenReturn(serverAddress);
+      mongoService.connect();
+      final Datastore localDataStore = mongoService.getDatastore();
 
-    whenNew(MongoClient.class).withParameterTypes(ServerAddress.class,List.class).withArguments(eq(serverAddress),eq(credentialsList)).thenReturn(mongoClient);
+      Assert.assertEquals(datastore, localDataStore);
 
-    when(morphia.createDatastore(mongoClient, "testDB")).thenReturn(datastore);
-
-    mongoService.connect();
-    Datastore localDataStore = mongoService.getDatastore();
-
-    Assert.assertEquals(datastore,localDataStore);
-
-    verify(morphia).map(User.class);
-    verify(morphia).map(UserChatState.class);
-    verify(morphia).map(UserRole.class);
-    verify(datastore).ensureIndexes();
+      verify(morphia).map(User.class);
+      verify(morphia).map(UserChatState.class);
+      verify(morphia).map(UserRole.class);
+      verify(datastore).ensureIndexes();
+    } catch (Exception e){//NOPMD
+      Assert.fail(e.getMessage());
+    }
   }
 
 

@@ -12,10 +12,15 @@ import javax.inject.Inject;
  */
 public class StateService {
 
+  /**
+   * The Mongo service.
+   */
   @Inject
-  MongoService mongoService;
+  private transient MongoService mongoService;
 
   /**
+   * Gets user state.
+   *
    * @param userid Telegram user id
    * @param chatid Telegram chat id
    * @return current user state
@@ -30,10 +35,25 @@ public class StateService {
   }
 
 
+  /**
+   * Sets state.
+   *
+   * @param userid the userid
+   * @param chatid the chatid
+   * @param state the state
+   */
   public void setState(int userid, long chatid, String state) {
     setState(userid, chatid, state, new ArrayList<String>());
   }
 
+  /**
+   * Sets state.
+   *
+   * @param userid the userid
+   * @param chatid the chatid
+   * @param state the state
+   * @param parameters the parameters
+   */
   public void setState(int userid, long chatid, String state, List<String> parameters) {
     checkAndDeleteState(userid, chatid);
 
@@ -49,6 +69,8 @@ public class StateService {
   }
 
   /**
+   * Sets state.
+   *
    * @param userid Telegram user ID
    * @param chatid Telegram Chat ID
    * @param state New State
@@ -58,6 +80,13 @@ public class StateService {
     setState(userid, chatid, state, Arrays.asList(parameters));
   }
 
+  /**
+   * Gets parameters.
+   *
+   * @param userId the user id
+   * @param chatId the chat id
+   * @return the parameters
+   */
   public List<String> getParameters(int userId, long chatId) {
     UserChatState userChatState = getUserChatState(userId, chatId);
     return userChatState.getFields();
@@ -68,6 +97,12 @@ public class StateService {
         .equal(userid).field("chatId").equal(chatid).get();
   }
 
+  /**
+   * Delete state.
+   *
+   * @param id the id
+   * @param chatId the chat id
+   */
   public void deleteState(Integer id, Long chatId) {
     checkAndDeleteState(id, chatId);
   }

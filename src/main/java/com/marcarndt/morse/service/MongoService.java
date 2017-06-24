@@ -2,11 +2,12 @@ package com.marcarndt.morse.service;
 
 import com.marcarndt.morse.MorseBotConfig;
 import com.mongodb.MongoClient;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
-import java.util.ArrayList;
-import java.util.List;
+import com.mongodb.MongoClientURI;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
@@ -22,15 +23,20 @@ import org.reflections.Reflections;
 public class MongoService {
 
   /**
+   * Logger
+   */
+  private static final Logger LOG = Logger.getLogger(MongoService.class.getName());
+
+  /**
    * CDI Injected Config details
    */
   @Inject
-  private MorseBotConfig config;
+  private transient MorseBotConfig config;
 
   /**
    * Datastore
    */
-  private Datastore datastore;
+  private transient Datastore datastore;
 
   /**
    * Connect.
@@ -45,13 +51,20 @@ public class MongoService {
       morphia.map(entity);
     }
 
-    final List<MongoCredential> credentialsList = new ArrayList<MongoCredential>();
-    final MongoCredential mongoCredential = MongoCredential
-        .createCredential(config.getMongoUser(), config.getMongoDatabase(),
-            config.getMongoPassword().toCharArray());
-    credentialsList.add(mongoCredential);
-    final ServerAddress addr = new ServerAddress(config.getMongoAddress());
-    final MongoClient client = new MongoClient(addr, credentialsList);
+    MongoClientURI uri = null;
+    try {
+      final String connectionString =
+          "mongodb://" + config.getMongoUser() + ":" + URLEncoder
+              .encode(config.getMongoPassword(), "UTF-8") + "@" + config
+              .getMongoAddress();
+      if (LOG.isLoggable(Level.INFO)) {
+        LOG.info("Connecting to " + connectionString);//NOPMD
+      }
+      uri = new MongoClientURI(connectionString);
+    } catch (UnsupportedEncodingException e) {
+      LOG.log(Level.SEVERE, "Unabele create client connection", e);
+    }
+    final MongoClient client = new MongoClient(uri);
 
     datastore = morphia
         .createDatastore(client, config.getMongoDatabase());
@@ -64,6 +77,7 @@ public class MongoService {
    *
    * @return the datastore
    */
+
   public Datastore getDatastore() {
     return datastore;
   }
