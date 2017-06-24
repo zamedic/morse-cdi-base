@@ -22,7 +22,10 @@ import org.reflections.Reflections;
 @Singleton
 public class MongoService {
 
-  Logger LOG = Logger.getLogger(MongoService.class.getName());
+  /**
+   * Logger
+   */
+  static final Logger LOG = Logger.getLogger(MongoService.class.getName());
 
   /**
    * CDI Injected Config details
@@ -50,15 +53,16 @@ public class MongoService {
 
     MongoClientURI uri = null;
     try {
-      String connectionString =
+      final String connectionString =
           "mongodb://" + config.getMongoUser() + ":" + URLEncoder
-              .encode(config.getMongoPassword(),"UTF-8") + "@" + config
+              .encode(config.getMongoPassword(), "UTF-8") + "@" + config
               .getMongoAddress();
-      LOG.info("Connecting to "+connectionString);
+      if (LOG.isLoggable(Level.INFO)) {
+        LOG.info("Connecting to " + connectionString);//NOPMD
+      }
       uri = new MongoClientURI(connectionString);
     } catch (UnsupportedEncodingException e) {
-      LOG.log(Level.SEVERE,"Unabele create client connection",e);
-      throw new RuntimeException(e);
+      LOG.log(Level.SEVERE, "Unabele create client connection", e);
     }
     final MongoClient client = new MongoClient(uri);
 
@@ -73,6 +77,7 @@ public class MongoService {
    *
    * @return the datastore
    */
+
   public Datastore getDatastore() {
     return datastore;
   }
