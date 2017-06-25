@@ -63,14 +63,14 @@ public class SendVenue extends BotApiMethod<Message> {
     return chatId;
   }
 
-  public SendVenue setChatId(String chatId) {
-    this.chatId = chatId;
-    return this;
-  }
-
   public SendVenue setChatId(Long chatId) {
     Objects.requireNonNull(chatId);
     this.chatId = chatId.toString();
+    return this;
+  }
+
+  public SendVenue setChatId(String chatId) {
+    this.chatId = chatId;
     return this;
   }
 

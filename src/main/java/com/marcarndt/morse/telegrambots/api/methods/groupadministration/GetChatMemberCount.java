@@ -30,14 +30,14 @@ public class GetChatMemberCount extends BotApiMethod<Integer> {
     return chatId;
   }
 
-  public GetChatMemberCount setChatId(String chatId) {
-    this.chatId = chatId;
-    return this;
-  }
-
   public GetChatMemberCount setChatId(Long chatId) {
     Objects.requireNonNull(chatId);
     this.chatId = chatId.toString();
+    return this;
+  }
+
+  public GetChatMemberCount setChatId(String chatId) {
+    this.chatId = chatId;
     return this;
   }
 

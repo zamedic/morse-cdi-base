@@ -35,14 +35,14 @@ public class KickChatMember extends BotApiMethod<Boolean> {
     return chatId;
   }
 
-  public KickChatMember setChatId(String chatId) {
-    this.chatId = chatId;
-    return this;
-  }
-
   public KickChatMember setChatId(Long chatId) {
     Objects.requireNonNull(chatId);
     this.chatId = chatId.toString();
+    return this;
+  }
+
+  public KickChatMember setChatId(String chatId) {
+    this.chatId = chatId;
     return this;
   }
 

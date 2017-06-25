@@ -34,14 +34,14 @@ public class GetChatMember extends BotApiMethod<ChatMember> {
     return chatId;
   }
 
-  public GetChatMember setChatId(String chatId) {
-    this.chatId = chatId;
-    return this;
-  }
-
   public GetChatMember setChatId(Long chatId) {
     Objects.requireNonNull(chatId);
     this.chatId = chatId.toString();
+    return this;
+  }
+
+  public GetChatMember setChatId(String chatId) {
+    this.chatId = chatId;
     return this;
   }
 

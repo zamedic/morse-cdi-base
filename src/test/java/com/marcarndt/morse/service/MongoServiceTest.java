@@ -107,7 +107,7 @@ public class MongoServiceTest {
       verify(morphia).map(UserChatState.class);
       verify(morphia).map(UserRole.class);
       verify(datastore).ensureIndexes();
-    } catch (Exception e){//NOPMD
+    } catch (Exception e) {//NOPMD
       Assert.fail(e.getMessage());
     }
   }

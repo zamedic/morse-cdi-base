@@ -45,14 +45,14 @@ public class SendChatAction extends BotApiMethod<Boolean> {
     return chatId;
   }
 
-  public SendChatAction setChatId(String chatId) {
-    this.chatId = chatId;
-    return this;
-  }
-
   public SendChatAction setChatId(Long chatId) {
     Objects.requireNonNull(chatId);
     this.chatId = chatId.toString();
+    return this;
+  }
+
+  public SendChatAction setChatId(String chatId) {
+    this.chatId = chatId;
     return this;
   }
 
