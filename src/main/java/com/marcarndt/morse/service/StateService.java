@@ -2,6 +2,7 @@ package com.marcarndt.morse.service;
 
 import com.marcarndt.morse.MorseBotException;
 import com.marcarndt.morse.data.UserChatState;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -61,13 +62,6 @@ public class StateService {
     mongoService.getDatastore().save(userChatState);
   }
 
-  private void checkAndDeleteState(int userid, long chatid) {
-    UserChatState userChatState = getUserChatState(userid, chatid);
-    if (userChatState != null) {
-      mongoService.getDatastore().delete(userChatState);
-    }
-  }
-
   /**
    * Sets state.
    *
@@ -79,6 +73,15 @@ public class StateService {
   public void setState(int userid, long chatid, String state, String... parameters) {
     setState(userid, chatid, state, Arrays.asList(parameters));
   }
+
+  private void checkAndDeleteState(int userid, long chatid) {
+    UserChatState userChatState = getUserChatState(userid, chatid);
+    if (userChatState != null) {
+      mongoService.getDatastore().delete(userChatState);
+    }
+  }
+
+
 
   /**
    * Gets parameters.
