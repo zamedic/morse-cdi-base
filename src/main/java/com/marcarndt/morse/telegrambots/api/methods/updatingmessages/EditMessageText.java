@@ -73,14 +73,14 @@ public class EditMessageText extends BotApiMethod<Serializable> {
     return chatId;
   }
 
-  public EditMessageText setChatId(String chatId) {
-    this.chatId = chatId;
-    return this;
-  }
-
   public EditMessageText setChatId(Long chatId) {
     Objects.requireNonNull(chatId);
     this.chatId = chatId.toString();
+    return this;
+  }
+
+  public EditMessageText setChatId(String chatId) {
+    this.chatId = chatId;
     return this;
   }
 

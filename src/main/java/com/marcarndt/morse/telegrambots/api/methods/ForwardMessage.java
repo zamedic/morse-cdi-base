@@ -47,14 +47,14 @@ public class ForwardMessage extends BotApiMethod<Message> {
     return chatId;
   }
 
-  public ForwardMessage setChatId(String chatId) {
-    this.chatId = chatId;
-    return this;
-  }
-
   public ForwardMessage setChatId(Long chatId) {
     Objects.requireNonNull(chatId);
     this.chatId = chatId.toString();
+    return this;
+  }
+
+  public ForwardMessage setChatId(String chatId) {
+    this.chatId = chatId;
     return this;
   }
 

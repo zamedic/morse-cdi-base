@@ -11,6 +11,7 @@ import com.marcarndt.morse.telegrambots.api.objects.User;
 import com.marcarndt.morse.telegrambots.bots.AbsSender;
 import com.marcarndt.morse.telegrambots.bots.commands.BotCommand;
 import com.marcarndt.morse.telegrambots.exceptions.TelegramApiException;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
@@ -33,6 +34,11 @@ public abstract class BaseCommand extends BotCommand {
 
   }
 
+  /**
+   * Gets the username for the User.
+   * @param user Chat Object
+   * @return String for the user name
+   */
   public static String getUsername(User user) {
     if (user.getUserName() != null) {
       return user.getUserName();
@@ -41,18 +47,20 @@ public abstract class BaseCommand extends BotCommand {
   }
 
   /**
+   * Handles a general morse bot exception bu sending the error to the user.
+   *
    * @param absSender Sender
    * @param chat Chat Object
-   * @param e Exception
+   * @param exception Exception
    */
-  protected void handleException(AbsSender absSender, Chat chat, MorseBotException e) {
+  protected void handleException(AbsSender absSender, Chat chat, MorseBotException exception) {
     SendMessage sendMessage = new SendMessage();
-    sendMessage.setText(e.getMessage());
+    sendMessage.setText(exception.getMessage());
     sendMessage.setChatId(chat.getId());
     try {
       absSender.sendMessage(sendMessage);
     } catch (TelegramApiException e1) {
-      LOG.log(Level.SEVERE, e1.getMessage(), e);
+      LOG.log(Level.SEVERE, e1.getMessage(), exception);
     }
   }
 

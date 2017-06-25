@@ -3,6 +3,11 @@ package com.marcarndt.morse.service;
 import com.marcarndt.morse.MorseBotConfig;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Morphia;
+import org.mongodb.morphia.annotations.Entity;
+import org.reflections.Reflections;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Set;
@@ -11,30 +16,29 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
-import org.mongodb.morphia.annotations.Entity;
-import org.reflections.Reflections;
+
+
+
 
 /**
- * Created by arndt on 2017/04/16.
+ * The type Mongo service.
  */
 @Singleton
 public class MongoService {
 
   /**
-   * Logger
+   * Logger.
    */
   private static final Logger LOG = Logger.getLogger(MongoService.class.getName());
 
   /**
-   * CDI Injected Config details
+   * CDI Injected Config details.
    */
   @Inject
   private transient MorseBotConfig config;
 
   /**
-   * Datastore
+   * Datastore.
    */
   private transient Datastore datastore;
 
@@ -53,10 +57,16 @@ public class MongoService {
 
     MongoClientURI uri = null;
     try {
-      final String connectionString =
-          "mongodb://" + config.getMongoUser() + ":" + URLEncoder
-              .encode(config.getMongoPassword(), "UTF-8") + "@" + config
-              .getMongoAddress();
+      String connectionString;
+      if (config.getMongoUser() == null && config.getMongoPassword() == null) {
+        connectionString =
+            "mongodb://" + config.getMongoAddress();
+      } else {
+        connectionString =
+            "mongodb://" + config.getMongoUser() + ":" + URLEncoder
+                .encode(config.getMongoPassword(), "UTF-8") + "@" + config
+                .getMongoAddress();
+      }
       if (LOG.isLoggable(Level.INFO)) {
         LOG.info("Connecting to " + connectionString);//NOPMD
       }
@@ -77,7 +87,6 @@ public class MongoService {
    *
    * @return the datastore
    */
-
   public Datastore getDatastore() {
     return datastore;
   }

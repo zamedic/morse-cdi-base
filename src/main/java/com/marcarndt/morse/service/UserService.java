@@ -4,6 +4,7 @@ import com.marcarndt.morse.MorseBotException;
 import com.marcarndt.morse.command.BaseCommand;
 import com.marcarndt.morse.data.User;
 import com.marcarndt.morse.data.UserRole;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -19,10 +20,10 @@ import javax.inject.Inject;
 @Stateless
 public class UserService {
 
-  public final static String UNAUTHENTICATED = "unauthenticated";
-  public final static String USER = "user";
-  public final static String ADMIN = "admin";
-  private final static Logger LOG = Logger.getLogger(UserService.class.getName());
+  public static final String UNAUTHENTICATED = "unauthenticated";
+  public static final String USER = "user";
+  public static final String ADMIN = "admin";
+  private static final Logger LOG = Logger.getLogger(UserService.class.getName());
   @Inject
   MongoService mongoService;
   @Any
@@ -30,6 +31,8 @@ public class UserService {
   Instance<BaseCommand> baseCommands;
 
   /**
+   * Validates a user against a role.
+   *
    * @param id id
    * @param role role
    * @return true if the user is valid
@@ -107,6 +110,17 @@ public class UserService {
     mongoService.getDatastore().save(userRole);
   }
 
+  public void addUserToRole(String name, String roleName) throws MorseBotException {
+    User user = getUserByName(name);
+    addUserToRole(user, roleName);
+  }
+
+  /**
+   * Gets roles for a user.
+   *
+   * @param id Chat ID For the user
+   * @return List of Roles the user has
+   */
   public List<String> getUserRoles(Integer id) {
     return mongoService.getDatastore().createQuery(UserRole.class).asList().stream()
         .filter(userRole ->
@@ -116,10 +130,22 @@ public class UserService {
             Collectors.toList());
   }
 
+  /**
+   * Gets all users.
+   *
+   * @return List of users
+   */
   public List<User> getAllUsers() {
     return mongoService.getDatastore().createQuery(User.class).asList();
   }
 
+  /**
+   * Finds a user by the name.
+   *
+   * @param name Name of the user
+   * @return User object
+   * @throws MorseBotException when the user is not found
+   */
   public User getUserByName(String name) throws MorseBotException {
     User user = mongoService.getDatastore().createQuery(User.class).field("name").equal(name).get();
     if (user == null) {
@@ -128,13 +154,8 @@ public class UserService {
     return user;
   }
 
-  public void addUserToRole(String name, String roleName) throws MorseBotException {
-    User user = getUserByName(name);
-    addUserToRole(user, roleName);
-  }
-
   /**
-   * Remove a user from a role
+   * Remove a user from a role.
    *
    * @param name First name of the user
    * @param roleName role name
@@ -150,6 +171,8 @@ public class UserService {
   }
 
   /**
+   * Returns a list of all the roles.
+   *
    * @return list of all roles identified
    */
   public List<String> getAllRoles() {
@@ -166,6 +189,11 @@ public class UserService {
     return result;
   }
 
+  /**
+   * Check if the system as a user admin in the database.
+   *
+   * @return true if a user admin exists
+   */
   public boolean adminUserExists() {
     return
         mongoService.getDatastore().createQuery(UserRole.class).field("role").equal(ADMIN).count()

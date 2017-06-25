@@ -116,7 +116,7 @@ public class MorseBotTest {
   @Test
   public void sendReplyKeyboardMarkup() throws Exception {
     List buttons = Arrays.asList("test", "test2");
-    morseBot.sendReplyKeyboardMarkup(buttons,false);
+    morseBot.sendReplyKeyboardMarkup(buttons, false);
   }
 
   @Test
