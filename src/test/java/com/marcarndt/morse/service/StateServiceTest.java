@@ -2,6 +2,7 @@ package com.marcarndt.morse.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.marcarndt.morse.MorseBotException;
@@ -59,6 +60,12 @@ public class StateServiceTest {
   @Before
   public void setUp() {
     when(mongoService.getDatastore()).thenReturn(datastore);
+    when(datastore.createQuery(UserChatState.class)).thenReturn(query);
+    when(query.field("userId")).thenReturn(fieldEnd);
+    when(fieldEnd.equal(1234)).thenReturn(query);
+    when(query.field("chatId")).thenReturn(fieldEnd);
+    when(fieldEnd.equal(5678l)).thenReturn(query);
+    when(query.get()).thenReturn(userChatState);
   }
 
   /**
@@ -68,12 +75,7 @@ public class StateServiceTest {
    */
   @Test
   public void getUserState() {
-    when(datastore.createQuery(UserChatState.class)).thenReturn(query);
-    when(query.field("userId")).thenReturn(fieldEnd);
-    when(fieldEnd.equal(1234)).thenReturn(query);
-    when(query.field("chatId")).thenReturn(fieldEnd);
-    when(fieldEnd.equal(5678l)).thenReturn(query);
-    when(query.get()).thenReturn(userChatState);
+
     when(userChatState.getState()).thenReturn("awesome");
 
     String response = null;
@@ -91,8 +93,11 @@ public class StateServiceTest {
    *
    * @throws Exception the exception
    */
+  @Test
   public void setState() {
-    //TODO
+
+    stateService.setState(1234,5678l,"TEST");
+    verify(datastore).delete(userChatState);
   }
 
   /**

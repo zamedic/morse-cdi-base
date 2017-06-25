@@ -35,7 +35,7 @@ import javax.inject.Inject;
  */
 @Singleton
 @Startup
-public class MorseBot extends TelegramLongPollingCommandBot {
+public class MorseBot extends TelegramLongPollingCommandBot {//NOPMD
 
   /**
    * Logger.
@@ -46,27 +46,27 @@ public class MorseBot extends TelegramLongPollingCommandBot {
    * State Service.
    */
   @Inject
-  private StateService stateService;
+  private transient StateService stateService;
 
   /**
    * Commandlets as discovered by CDI.
    */
   @Inject
   @Any
-  private Instance<Commandlet> commandlets;
+  private transient Instance<Commandlet> commandlets;
 
   /**
    * All the base commands.
    */
   @Inject
   @Any
-  private Instance<BaseCommand> commands;
+  private transient Instance<BaseCommand> commands;
 
   /**
    * Config.
    */
   @Inject
-  private MorseBotConfig botConfig;
+  private transient MorseBotConfig botConfig;
 
 
   /**
@@ -152,11 +152,11 @@ public class MorseBot extends TelegramLongPollingCommandBot {
     int count = 0;
     KeyboardRow keyboardRow = new KeyboardRow();
     for (final String button : buttons) {
-      keyboardRow.add(new KeyboardButton(button));
+      keyboardRow.add(new KeyboardButton(button));//NOPMD
       count++;
       if (count % 2 == 0) {
         keyboardRows.add(keyboardRow);
-        keyboardRow = new KeyboardRow();
+        keyboardRow = new KeyboardRow();//NOPMD
       }
     }
     if (keyboardRow.size() > 0) {
@@ -200,6 +200,10 @@ public class MorseBot extends TelegramLongPollingCommandBot {
     }
   }
 
+  /**
+   *
+   * @param update the update
+   */
   @Override
   public void processNonCommandUpdate(final Update update) {
     LOG.info("Receives update");
@@ -234,6 +238,11 @@ public class MorseBot extends TelegramLongPollingCommandBot {
 
   }
 
+  /**
+   *
+   * @param sendMessage
+   * @return
+   */
   @Override
   public Message sendMessage(final SendMessage sendMessage) {
     try {
@@ -280,14 +289,14 @@ public class MorseBot extends TelegramLongPollingCommandBot {
 
   private void handleUpdate(final Message message, final String command) {
     if (LOG.isLoggable(Level.INFO)) {
-      LOG.info(
+      LOG.info(//NOPMD
           "Searching for commandlet to handle state " + command + " message " + message
               .getText());
     }
     for (final Commandlet commandlet : commandlets) {
       if (commandlet.canHandleCommand(message, command)) {
         if (LOG.isLoggable(Level.INFO)) {
-          LOG.info("Executing class " + commandlet.getClass().getName());
+          LOG.info("Executing class " + commandlet.getClass().getName());//NOPMD
         }
         commandlet.handleCommand(message, command,
             stateService.getParameters(message.getFrom().getId(), message.getChatId()),
@@ -304,15 +313,27 @@ public class MorseBot extends TelegramLongPollingCommandBot {
     }
   }
 
+  /**
+   *
+   * @return
+   */
   public Instance<BaseCommand> getCommands() {
     return commands;
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public String getBotUsername() {
     return botConfig.getUsername();
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public String getBotToken() {
     return botConfig.getKey();

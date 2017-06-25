@@ -5,7 +5,6 @@ import com.marcarndt.morse.MorseBotException;
 import com.marcarndt.morse.service.UserService;
 import com.marcarndt.morse.telegrambots.api.objects.Chat;
 import com.marcarndt.morse.telegrambots.api.objects.User;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -14,30 +13,39 @@ import javax.inject.Inject;
  */
 @Stateless
 public class HelpCommand extends BaseCommand {
-
-  private static Logger LOG = Logger.getLogger(HelpCommand.class.getName());
-
+  /**
+   * The User service.
+   */
   @Inject
-  MorseBot morseBot;
+  private transient UserService userService;
 
-  @Inject
-  UserService userService;
-
-
+  /**
+   *
+   * @return
+   */
   @Override
   public String getRole() {
     return UserService.UNAUTHENTICATED;
   }
 
+  /**
+   *
+   * @param morseBot
+   * @param user
+   * @param chat
+   * @param arguments
+   * @return
+   */
   @Override
-  public String performCommand(MorseBot morseBot, User user, Chat chat, String[] arguments) {
-    StringBuilder stringBuilder = new StringBuilder();
+  public String performCommand(final MorseBot morseBot, final User user, final Chat chat,
+      final String[] arguments) {
+    final StringBuilder stringBuilder = new StringBuilder();
 
-    for (BaseCommand command : morseBot.getCommands()) {
+    for (final BaseCommand command : morseBot.getCommands()) {
       try {
         if (userService.validateUser(user.getId(), command.getRole())) {
           stringBuilder.append(command.getCommandIdentifier()).append(" - ");
-          stringBuilder.append(command.getDescription()).append("\n");
+          stringBuilder.append(command.getDescription()).append('\n');
         }
       } catch (MorseBotException e) {
         continue;
@@ -48,11 +56,19 @@ public class HelpCommand extends BaseCommand {
   }
 
 
+  /**
+   *
+   * @return
+   */
   @Override
   public String getCommandIdentifier() {
     return "help";
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public String getDescription() {
     return "Get help";

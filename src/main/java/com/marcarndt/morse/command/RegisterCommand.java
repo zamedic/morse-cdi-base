@@ -5,6 +5,7 @@ import com.marcarndt.morse.service.UserService;
 import com.marcarndt.morse.telegrambots.api.methods.send.SendMessage;
 import com.marcarndt.morse.telegrambots.api.objects.Chat;
 import com.marcarndt.morse.telegrambots.api.objects.User;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 
@@ -13,29 +14,57 @@ import javax.inject.Inject;
  */
 public class RegisterCommand extends BaseCommand {
 
-  private static Logger LOG = Logger.getLogger(RegisterCommand.class.getName());
+  /**
+   * Logger
+   */
+  private static final Logger LOG = Logger.getLogger(RegisterCommand.class.getName());
 
+  /**
+   * The User service.
+   */
   @Inject
-  UserService userService;
+  private transient UserService userService;
 
+  /**
+   *
+   * @return
+   */
   @Override
   public String getCommandIdentifier() {
     return "register";
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public String getDescription() {
     return "Register yourself with the bot";
   }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public String getRole() {
     return UserService.UNAUTHENTICATED;
   }
 
+  /**
+   *
+   * @param morseBot
+   * @param user
+   * @param chat
+   * @param arguments
+   * @return
+   */
   @Override
-  protected String performCommand(MorseBot morseBot, User user, Chat chat, String[] arguments) {
-    LOG.info("Adding User " + user.getId() + " - " + user.getFirstName());
+  protected String performCommand(final MorseBot morseBot, final User user, final Chat chat, final String[] arguments) {
+    if(LOG.isLoggable(Level.INFO)) {
+      LOG.info("Adding User " + user.getId() + " - " + user.getFirstName());//NOPMD
+    }
     userService.addUser(user.getId(), user.getFirstName(), user.getLastName());
     SendMessage sendMessage = new SendMessage();
     sendMessage.setChatId(chat.getId());
