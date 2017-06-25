@@ -35,17 +35,7 @@ public class StartCommand extends BotCommand {
       LOG.log(Level.WARNING, "Error sending response", e);
     }
 
-    if (!userService.adminUserExists()) {
-      userService.addUser(user.getId(), user.getFirstName(), user.getLastName(), UserService.ADMIN);
-      sendMessage = new SendMessage();
-      sendMessage.setText("You have been added as an administrator");
-      sendMessage.setChatId(chat.getId());
-      try {
-        absSender.sendMessage(sendMessage);
-      } catch (TelegramApiException e) {
-        LOG.log(Level.WARNING, "Error sending response", e);
-      }
-    }
+
   }
 
   @Override

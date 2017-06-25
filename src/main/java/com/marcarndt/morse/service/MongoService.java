@@ -53,10 +53,16 @@ public class MongoService {
 
     MongoClientURI uri = null;
     try {
-      final String connectionString =
-          "mongodb://" + config.getMongoUser() + ":" + URLEncoder
-              .encode(config.getMongoPassword(), "UTF-8") + "@" + config
-              .getMongoAddress();
+      String connectionString;
+      if (config.getMongoUser() == null && config.getMongoPassword() == null) {
+        connectionString =
+            "mongodb://" + config.getMongoAddress();
+      } else {
+        connectionString =
+            "mongodb://" + config.getMongoUser() + ":" + URLEncoder
+                .encode(config.getMongoPassword(), "UTF-8") + "@" + config
+                .getMongoAddress();
+      }
       if (LOG.isLoggable(Level.INFO)) {
         LOG.info("Connecting to " + connectionString);//NOPMD
       }

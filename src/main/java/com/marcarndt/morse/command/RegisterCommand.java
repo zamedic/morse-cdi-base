@@ -41,6 +41,14 @@ public class RegisterCommand extends BaseCommand {
     sendMessage.setChatId(chat.getId());
     sendMessage.setText("The bot is now aware of you " + user.getFirstName());
     morseBot.sendMessage(sendMessage);
+
+    if (!userService.adminUserExists()) {
+      userService.addUser(user.getId(), user.getFirstName(), user.getLastName(), UserService.ADMIN);
+      sendMessage = new SendMessage();
+      sendMessage.setText("You have been added as an administrator");
+      sendMessage.setChatId(chat.getId());
+      morseBot.sendMessage(sendMessage);
+    }
     return null;
 
   }

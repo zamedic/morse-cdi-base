@@ -1,10 +1,10 @@
 package com.marcarndt.morse.command;
 
 import com.marcarndt.morse.MorseBot;
+import com.marcarndt.morse.MorseBotException;
 import com.marcarndt.morse.service.UserService;
 import com.marcarndt.morse.telegrambots.api.objects.Chat;
 import com.marcarndt.morse.telegrambots.api.objects.User;
-import com.marcarndt.morse.telegrambots.bots.commands.BotCommand;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -20,6 +20,10 @@ public class HelpCommand extends BaseCommand {
   @Inject
   MorseBot morseBot;
 
+  @Inject
+  UserService userService;
+
+
   @Override
   public String getRole() {
     return UserService.UNAUTHENTICATED;
@@ -29,9 +33,15 @@ public class HelpCommand extends BaseCommand {
   public String performCommand(MorseBot morseBot, User user, Chat chat, String[] arguments) {
     StringBuilder stringBuilder = new StringBuilder();
 
-    for (BotCommand command : morseBot.getRegisteredCommands()) {
-      stringBuilder.append(command.getCommandIdentifier()).append(" - ");
-      stringBuilder.append(command.getDescription()).append("\n");
+    for (BaseCommand command : morseBot.getCommands()) {
+      try {
+        if (userService.validateUser(user.getId(), command.getRole())) {
+          stringBuilder.append(command.getCommandIdentifier()).append(" - ");
+          stringBuilder.append(command.getDescription()).append("\n");
+        }
+      } catch (MorseBotException e) {
+        continue;
+      }
     }
     sendMessage(morseBot, chat, stringBuilder.toString());
     return null;
