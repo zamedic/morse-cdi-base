@@ -61,8 +61,9 @@ public class RegisterCommand extends BaseCommand {
    * @return
    */
   @Override
-  protected String performCommand(final MorseBot morseBot, final User user, final Chat chat, final String[] arguments) {
-    if(LOG.isLoggable(Level.INFO)) {
+  protected String performCommand(final MorseBot morseBot, final User user, final Chat chat,
+      final String[] arguments) {
+    if (LOG.isLoggable(Level.INFO)) {
       LOG.info("Adding User " + user.getId() + " - " + user.getFirstName());//NOPMD
     }
     userService.addUser(user.getId(), user.getFirstName(), user.getLastName());

@@ -201,7 +201,6 @@ public class MorseBot extends TelegramLongPollingCommandBot {//NOPMD
   }
 
   /**
-   *
    * @param update the update
    */
   @Override

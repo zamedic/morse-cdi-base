@@ -13,6 +13,7 @@ import javax.inject.Inject;
  */
 @Stateless
 public class HelpCommand extends BaseCommand {
+
   /**
    * The User service.
    */

@@ -96,7 +96,7 @@ public class StateServiceTest {
   @Test
   public void setState() {
 
-    stateService.setState(1234,5678l,"TEST");
+    stateService.setState(1234, 5678l, "TEST");
     verify(datastore).delete(userChatState);
   }
 
