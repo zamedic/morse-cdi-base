@@ -46,7 +46,7 @@ public class UserService {
     User user = getUser(id);
     if (user == null) {
       throw new MorseBotException(
-          "You are not known to me human. Use /register to make me aware of your presence. ");
+          "You are not known to me. Use /register to make me aware of your presence. ");
     }
     if (role.equals(USER)) {
       return true;
