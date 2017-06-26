@@ -190,8 +190,10 @@ public class MorseBot extends TelegramLongPollingCommandBot {//NOPMD
   @PostConstruct
   public void setup() {
     for (final BaseCommand baseCommand : commands) {
-      LOG.info("Registering bot command: " + baseCommand.getCommandIdentifier() + " for role "
-          + baseCommand.getRole());
+      if(LOG.isLoggable(Level.INFO)) {
+        LOG.info("Registering bot command: " + baseCommand.getCommandIdentifier() + " for role "//NOPMD
+            + baseCommand.getRole());
+      }
       register(baseCommand);
     }
     final TelegramBotsApi telegramBotsApi = new TelegramBotsApi();

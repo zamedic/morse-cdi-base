@@ -23,20 +23,41 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 public class UserServiceTest {
 
+  /**
+   * Mongo Service
+   */
   @Mock
-  MongoService mongoService;
+  private transient  MongoService mongoService;
+  /**
+   * The Datastore.
+   */
   @Mock
-  Datastore datastore;
+  private transient Datastore datastore;
+  /**
+   * The Query.
+   */
   @Mock
-  Query query;
+  private transient Query query;
+  /**
+   * The Field end.
+   */
   @Mock
-  FieldEnd fieldEnd;
+  private transient FieldEnd fieldEnd;
+  /**
+   * The Query 2.
+   */
   @Mock
-  Query query2;
+  private transient Query query2;
 
+  /**
+   * The User service.
+   */
   @InjectMocks
-  UserService userService;
+  private transient UserService userService;
 
+  /**
+   * Sets up.
+   */
   @Before
   public void setUp() {
     when(mongoService.getDatastore()).thenReturn(datastore);
@@ -45,37 +66,46 @@ public class UserServiceTest {
     when(fieldEnd.equal(1234)).thenReturn(query2);
   }
 
+  /**
+   * Validate user un authenticated.
+   */
   @Test
   public void validateUserUnAuthenticated() {
     try {
-      assertTrue(userService.validateUser(1234, UserService.UNAUTHENTICATED));
+      assertTrue("Ensure user successfully authenticated. ",userService.validateUser(1234, UserService.UNAUTHENTICATED));
     } catch (MorseBotException e) {
       fail(e.getMessage());
     }
   }
 
+  /**
+   * Validate user not exists.
+   */
   @Test
   public void validateUserNotExists() {
     when(query2.get()).thenReturn(null);
     try {
       userService.validateUser(1234, UserService.USER);
-      fail();
+      fail("User should have failed authentication");
     } catch (MorseBotException e) {
-      assertEquals("You are not known to me. Use /register to make me aware of your presence. ",
+      assertEquals("Ensure user fails authentication with the correct error. ","You are not known to me. Use /register to make me aware of your presence. ",
           e.getMessage());
     }
   }
 
+  /**
+   * Validate user exists user role.
+   */
   @Test
   public void validateUserExistsUserRole() {
-    User user = new User();
+    final User user = new User();
     when(query2.get()).thenReturn(user);
     try {
-      assertTrue(userService.validateUser(1234, UserService.USER));
+      assertTrue("Ensure user authenticates",userService.validateUser(1234, UserService.USER));
     } catch (MorseBotException e) {
       fail(e.getMessage());
     }
   }
 
- 
+
 }
