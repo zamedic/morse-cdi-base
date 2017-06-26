@@ -18,6 +18,7 @@ import com.marcarndt.morse.telegrambots.api.objects.replykeyboard.buttons.Keyboa
 import com.marcarndt.morse.telegrambots.bots.TelegramLongPollingCommandBot;
 import com.marcarndt.morse.telegrambots.exceptions.TelegramApiException;
 import com.marcarndt.morse.telegrambots.exceptions.TelegramApiRequestException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +36,7 @@ import javax.inject.Inject;
  */
 @Singleton
 @Startup
-public class MorseBot extends TelegramLongPollingCommandBot {//NOPMD
+public class MorseBot extends TelegramLongPollingCommandBot { //NOPMD
 
   /**
    * Logger.
@@ -190,9 +191,9 @@ public class MorseBot extends TelegramLongPollingCommandBot {//NOPMD
   @PostConstruct
   public void setup() {
     for (final BaseCommand baseCommand : commands) {
-      if(LOG.isLoggable(Level.INFO)) {
-        LOG.info("Registering bot command: " + baseCommand.getCommandIdentifier() + " for role "//NOPMD
-            + baseCommand.getRole());
+      if (LOG.isLoggable(Level.INFO)) {
+        LOG.info("Registering bot command: " + baseCommand.getCommandIdentifier()
+            + " for role " + baseCommand.getRole());
       }
       register(baseCommand);
     }
@@ -205,6 +206,8 @@ public class MorseBot extends TelegramLongPollingCommandBot {//NOPMD
   }
 
   /**
+   * Processes Commands that are not a Bot Command - normally replies.
+   *
    * @param update the update
    */
   @Override
@@ -242,9 +245,10 @@ public class MorseBot extends TelegramLongPollingCommandBot {//NOPMD
   }
 
   /**
+   * Send a message to the user.
    *
-   * @param sendMessage
-   * @return
+   * @param sendMessage Send Messafe
+   * @return Message object
    */
   @Override
   public Message sendMessage(final SendMessage sendMessage) {
@@ -317,16 +321,18 @@ public class MorseBot extends TelegramLongPollingCommandBot {//NOPMD
   }
 
   /**
+   * Returns a list of commands available.
    *
-   * @return
+   * @return List of commands.
    */
   public Instance<BaseCommand> getCommands() {
     return commands;
   }
 
   /**
+   * Returns the BOT username.
    *
-   * @return
+   * @return String for the bot uername
    */
   @Override
   public String getBotUsername() {
@@ -334,8 +340,9 @@ public class MorseBot extends TelegramLongPollingCommandBot {//NOPMD
   }
 
   /**
+   * Returns the BOT Token.
    *
-   * @return
+   * @return Bot Token
    */
   @Override
   public String getBotToken() {
