@@ -1,8 +1,8 @@
-package com.marcarndt.morse.command.commandlets.configure.user;
+package com.marcarndt.morse.command.commandlet.user;
 
 import com.marcarndt.morse.MorseBot;
 import com.marcarndt.morse.MorseBotException;
-import com.marcarndt.morse.command.commandlets.Commandlet;
+import com.marcarndt.morse.command.commandlet.Commandlet;
 import com.marcarndt.morse.data.User;
 import com.marcarndt.morse.service.UserService;
 import com.marcarndt.morse.telegrambots.api.objects.Message;
@@ -16,7 +16,7 @@ import javax.inject.Inject;
  */
 public class UserRoleListAdd implements Commandlet {
 
-  public static final String USER_ADD_ROLE = "User Add Role";
+  public static final String USER_ADD_ROLE = "User Select Role Add";
   @Inject
   UserService userService;
 

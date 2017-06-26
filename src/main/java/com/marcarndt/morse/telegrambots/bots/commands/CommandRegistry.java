@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 /**
- * This class manages all the commands for a bot. You can register and deregister commands on demand
+ * This class manages all the sshcommands for a bot. You can register and deregister sshcommands on demand
  *
  * @author Timo Schulz (Mit0x2)
  */
@@ -23,7 +23,7 @@ public class CommandRegistry implements ICommandRegistry {
   /**
    * Creates a Command registry
    *
-   * @param allowCommandsWithUsername True to allow commands with username, false otherwise
+   * @param allowCommandsWithUsername True to allow sshcommands with username, false otherwise
    * @param botUsername Bot username
    */
   public CommandRegistry(boolean allowCommandsWithUsername, String botUsername) {

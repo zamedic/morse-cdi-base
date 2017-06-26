@@ -32,7 +32,7 @@ public class HelpCommand extends BaseCommand {
   }
 
   /**
-   * Executed the Help Command by returning a list of commands the user has access too.
+   * Executed the Help Command by returning a list of sshcommands the user has access too.
    *
    * @param morseBot morsebot
    * @param user user
@@ -48,7 +48,7 @@ public class HelpCommand extends BaseCommand {
     for (final BaseCommand command : morseBot.getCommands()) {
       try {
         if (userService.validateUser(user.getId(), command.getRole())) {
-          stringBuilder.append(command.getCommandIdentifier()).append(" - ");
+          stringBuilder.append('/').append(command.getCommandIdentifier()).append(" - ");
           stringBuilder.append(command.getDescription()).append('\n');
         }
       } catch (MorseBotException e) {

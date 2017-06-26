@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 /**
- * This Interface represents the gateway for registering and deregistering commands.
+ * This Interface represents the gateway for registering and deregistering sshcommands.
  *
  * @author Timo Schulz (Mit0x2)
  */
@@ -32,9 +32,9 @@ public interface ICommandRegistry {
   boolean register(BotCommand botCommand);
 
   /**
-   * register multiple commands
+   * register multiple sshcommands
    *
-   * @param botCommands commands to register
+   * @param botCommands sshcommands to register
    * @return map with results of the command register per command
    */
   Map<BotCommand, Boolean> registerAll(BotCommand... botCommands);
@@ -48,17 +48,17 @@ public interface ICommandRegistry {
   boolean deregister(BotCommand botCommand);
 
   /**
-   * deregister multiple commands
+   * deregister multiple sshcommands
    *
-   * @param botCommands commands to deregister
+   * @param botCommands sshcommands to deregister
    * @return map with results of the command deregistered per command
    */
   Map<BotCommand, Boolean> deregisterAll(BotCommand... botCommands);
 
   /**
-   * get a collection of all registered commands
+   * get a collection of all registered sshcommands
    *
-   * @return a collection of registered commands
+   * @return a collection of registered sshcommands
    */
   Collection<BotCommand> getRegisteredCommands();
 

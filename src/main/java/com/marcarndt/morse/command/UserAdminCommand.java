@@ -34,7 +34,7 @@ public class UserAdminCommand extends BaseCommand {
   @Override
   protected String performCommand(MorseBot absSender, User user, Chat chat, String[] arguments) {
     morseBot
-        .sendReplyKeyboardMessage(user, chat, ADD_USER_TO_ROLE, REMOVE_USER_TO_ROLE, DELETE_USER);
+        .sendReplyKeyboardMessage(user, chat,"What would you like to do? ", ADD_USER_TO_ROLE, REMOVE_USER_TO_ROLE, DELETE_USER);
     return USERADMIN;
 
   }

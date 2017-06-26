@@ -1,7 +1,7 @@
 package com.marcarndt.morse;
 
 import com.marcarndt.morse.command.BaseCommand;
-import com.marcarndt.morse.command.commandlets.Commandlet;
+import com.marcarndt.morse.command.commandlet.Commandlet;
 import com.marcarndt.morse.service.StateService;
 import com.marcarndt.morse.telegrambots.TelegramBotsApi;
 import com.marcarndt.morse.telegrambots.api.methods.send.SendMessage;
@@ -56,7 +56,7 @@ public class MorseBot extends TelegramLongPollingCommandBot {//NOPMD
   private transient Instance<Commandlet> commandlets;
 
   /**
-   * All the base commands.
+   * All the base sshcommands.
    */
   @Inject
   @Any
@@ -190,6 +190,8 @@ public class MorseBot extends TelegramLongPollingCommandBot {//NOPMD
   @PostConstruct
   public void setup() {
     for (final BaseCommand baseCommand : commands) {
+      LOG.info("Registering bot command: " + baseCommand.getCommandIdentifier() + " for role "
+          + baseCommand.getRole());
       register(baseCommand);
     }
     final TelegramBotsApi telegramBotsApi = new TelegramBotsApi();

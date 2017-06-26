@@ -54,7 +54,7 @@ public class Game implements BotApiObject {
   private String text;
   /**
    * Optional. Special entities that appear in text, such as usernames,
-   * URLs, bot commands, etc.
+   * URLs, bot sshcommands, etc.
    */
   @JsonProperty(TEXTENTITIES_FIELD)
   private List<MessageEntity> entities;
