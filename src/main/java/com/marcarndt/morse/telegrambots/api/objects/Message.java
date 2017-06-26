@@ -66,7 +66,7 @@ public class Message implements BotApiObject {
   private String text; ///< Optional. For text messages, the actual UTF-8 text of the message
   /**
    * Optional. For text messages, special entities like usernames, URLs,
-   * bot commands, etc. that appear in the text
+   * bot sshcommands, etc. that appear in the text
    */
   @JsonProperty(ENTITIES_FIELD)
   private List<MessageEntity> entities;

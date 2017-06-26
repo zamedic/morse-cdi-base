@@ -40,9 +40,9 @@ public abstract class TelegramLongPollingCommandBot extends TelegramLongPollingB
   }
 
   /**
-   * Override this function in your bot implementation to filter messages with commands
+   * Override this function in your bot implementation to filter messages with sshcommands
    *
-   * For example, if you want to prevent commands execution incoming from group chat:
+   * For example, if you want to prevent sshcommands execution incoming from group chat:
    * #
    * # return !message.getChat().isGroupChat();
    * #
@@ -94,7 +94,7 @@ public abstract class TelegramLongPollingCommandBot extends TelegramLongPollingB
   }
 
   /**
-   * Process all updates, that are not commands.
+   * Process all updates, that are not sshcommands.
    * won't be forwarded to this method <b>if a default action is present</b>.
    *
    * @param update the update

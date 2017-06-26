@@ -1,8 +1,8 @@
-package com.marcarndt.morse.command.commandlets.configure.user;
+package com.marcarndt.morse.command.commandlet.user;
 
 import com.marcarndt.morse.MorseBot;
 import com.marcarndt.morse.MorseBotException;
-import com.marcarndt.morse.command.commandlets.Commandlet;
+import com.marcarndt.morse.command.commandlet.Commandlet;
 import com.marcarndt.morse.service.UserService;
 import com.marcarndt.morse.telegrambots.api.objects.Message;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.marcarndt.morse.command.commandlets;
+package com.marcarndt.morse.command.commandlet;
 
 import com.marcarndt.morse.MorseBot;
 import com.marcarndt.morse.telegrambots.api.objects.Message;
