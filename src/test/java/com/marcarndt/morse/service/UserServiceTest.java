@@ -1,12 +1,15 @@
 package com.marcarndt.morse.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.marcarndt.morse.MorseBotException;
 import com.marcarndt.morse.data.User;
+import com.marcarndt.morse.data.UserRole;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -102,6 +105,23 @@ public class UserServiceTest {
     when(query2.get()).thenReturn(user);
     try {
       assertTrue("Ensure user authenticates",userService.validateUser(1234, UserService.USER));
+    } catch (MorseBotException e) {
+      fail(e.getMessage());
+    }
+  }
+
+  @Test
+  public void validateUserExistsNoRoles(){
+    final User user = new User();
+    when(query2.get()).thenReturn(user);
+    when(datastore.createQuery(UserRole.class)).thenReturn(query);
+    when(query.field("role")).thenReturn(fieldEnd);
+    Query query3 = mock(Query.class);
+    when(fieldEnd.equal("Test")).thenReturn(query3);
+    when(query3.get()).thenReturn(null);
+
+    try {
+      assertFalse(userService.validateUser(1234,"Test"));
     } catch (MorseBotException e) {
       fail(e.getMessage());
     }
