@@ -8,4 +8,8 @@ public class MorseBotException extends Exception {
   public MorseBotException(String s) {
     super(s);
   }
+
+  public MorseBotException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }
